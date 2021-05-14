@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.lacak.androidjetpackprosubmission.R;
+import com.lacak.androidjetpackprosubmission.data.FilmEntity;
 
 public class DetailActivity extends AppCompatActivity {
 
@@ -14,5 +15,7 @@ public class DetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+
+        FilmEntity filmEntity = getIntent().getParcelableExtra(EXTRA_FILM);
     }
 }

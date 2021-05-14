@@ -73,7 +73,7 @@ public class FilmAdapter extends RecyclerView.Adapter<FilmAdapter.FilmViewHolder
 
             itemView.setOnClickListener(v -> {
                 Intent moveToDetailActivity = new Intent(itemView.getContext(), DetailActivity.class);
-                moveToDetailActivity.putExtra(DetailActivity.EXTRA_FILM, filmEntity.getTitle());
+                moveToDetailActivity.putExtra(DetailActivity.EXTRA_FILM, filmEntity);
                 itemView.getContext().startActivity(moveToDetailActivity);
             });
         }
