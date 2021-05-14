@@ -52,7 +52,7 @@ public class FilmFragment extends Fragment {
 
             // ADD DATA TO RECYLER VIEW BASED ON SELECTED TAB
             if(index == 1){
-                List<FilmEntity> listFilms = MoviesListDataGenerator.generateMoviesListData();
+                List<FilmEntity> listFilms = MoviesListDataGenerator.generateMoviesListData(getContext());
                 addDataToRecylerView(listFilms);
             }
             else if(index == 2){

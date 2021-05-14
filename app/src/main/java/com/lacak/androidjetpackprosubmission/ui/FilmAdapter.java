@@ -1,5 +1,6 @@
 package com.lacak.androidjetpackprosubmission.ui;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -54,6 +55,7 @@ public class FilmAdapter extends RecyclerView.Adapter<FilmAdapter.FilmViewHolder
             this.itemFilmBinding = itemFilmBinding;
         }
 
+        @SuppressLint("UseCompatLoadingForDrawables")
         void bind(FilmEntity filmEntity){
             itemFilmBinding.textViewTitle.setText(filmEntity.getTitle());
             itemFilmBinding.textViewYear.setText(filmEntity.getYear());
@@ -63,6 +65,9 @@ public class FilmAdapter extends RecyclerView.Adapter<FilmAdapter.FilmViewHolder
             if(rating < 70){
                 itemFilmBinding.textViewRating.setBackgroundColor(context.getResources().getColor(R.color.yellow_a200));
             }
+
+            int imageResource = context.getResources().getIdentifier(filmEntity.getImagePath(), null, context.getPackageName());
+            itemFilmBinding.imageView.setImageDrawable(context.getResources().getDrawable(imageResource));
         }
     }
 }
