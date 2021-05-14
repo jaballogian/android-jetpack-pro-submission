@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
@@ -13,8 +14,6 @@ import android.view.ViewGroup;
 
 import com.lacak.androidjetpackprosubmission.data.FilmEntity;
 import com.lacak.androidjetpackprosubmission.databinding.FragmentFilmBinding;
-import com.lacak.androidjetpackprosubmission.utils.MoviesListDataGenerator;
-import com.lacak.androidjetpackprosubmission.utils.ShowsListDataGenerator;
 
 import java.util.List;
 
@@ -45,13 +44,14 @@ public class FilmFragment extends Fragment {
         if (getArguments() != null) {
             index = getArguments().getInt(ARG_SECTION_NUMBER);
 
+            FilmViewModel filmViewModel = new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(FilmViewModel.class);
             // ADD DATA TO RECYLER VIEW BASED ON SELECTED TAB
             if(index == 1){
-                List<FilmEntity> listFilms = MoviesListDataGenerator.generateMoviesListData();
+                List<FilmEntity> listFilms = filmViewModel.getMoviesListData();
                 addDataToRecylerView(listFilms);
             }
             else if(index == 2){
-                List<FilmEntity> listFilms = ShowsListDataGenerator.generateShowsListData();
+                List<FilmEntity> listFilms = filmViewModel.getShowsListData();
                 addDataToRecylerView(listFilms);
             }
         }
