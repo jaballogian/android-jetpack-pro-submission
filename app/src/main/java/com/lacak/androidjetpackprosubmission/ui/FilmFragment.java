@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.lacak.androidjetpackprosubmission.R;
 
@@ -40,11 +39,9 @@ public class FilmFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        final TextView textView = view.findViewById(R.id.text_view_fragment);
         int index = 1;
         if (getArguments() != null) {
             index = getArguments().getInt(ARG_SECTION_NUMBER);
-            textView.setText("This is tab " + index);
         }
     }
 }
