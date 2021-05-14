@@ -1,14 +1,12 @@
 package com.lacak.androidjetpackprosubmission.utils;
 
-import android.content.Context;
-
 import com.lacak.androidjetpackprosubmission.data.FilmEntity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MoviesListDataGenerator {
-    public static List<FilmEntity> generateMoviesListData(Context context) {
+    public static List<FilmEntity> generateMoviesListData() {
         ArrayList<FilmEntity> moviesList = new ArrayList<>();
 
         // 1
