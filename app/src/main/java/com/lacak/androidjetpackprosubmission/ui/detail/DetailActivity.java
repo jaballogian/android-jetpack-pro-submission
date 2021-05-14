@@ -1,6 +1,7 @@
 package com.lacak.androidjetpackprosubmission.ui.detail;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
 
@@ -18,7 +19,16 @@ public class DetailActivity extends AppCompatActivity {
         activityDetailBinding = ActivityDetailBinding.inflate(getLayoutInflater());
         setContentView(activityDetailBinding.getRoot());
 
+        DetailViewModel detailViewModel = new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(DetailViewModel.class);
+
         FilmEntity filmEntity = getIntent().getParcelableExtra(EXTRA_FILM);
+
+        if(filmEntity != null){
+            detailViewModel.setFilmEntity(filmEntity);
+        }
+        else {
+            filmEntity = detailViewModel.getFilmEntity();
+        }
 
         activityDetailBinding.textViewTitle.setText(filmEntity.getTitle());
         activityDetailBinding.textViewGenres.setText(filmEntity.getGenres());
