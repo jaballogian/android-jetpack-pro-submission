@@ -2,7 +2,7 @@ package com.lacak.androidjetpackprosubmission.ui;
 
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.ViewPager;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
 
@@ -27,13 +27,13 @@ public class MainActivity extends AppCompatActivity {
         activityMainBinding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(activityMainBinding.getRoot());
 
-        ViewPager viewPager = activityMainBinding.viewPager;
+        ViewPager2 viewPager2 = activityMainBinding.viewPager2;
         TabLayout tabLayout = activityMainBinding.tabs;
 
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this);
 
-        viewPager.setAdapter(sectionsPagerAdapter);
-        new TabLayoutMediator(tabLayout, viewPager, ((tab, position) -> tab.setText(getResources().getString(TAB_TITLES[position]))));
+        viewPager2.setAdapter(sectionsPagerAdapter);
+        new TabLayoutMediator(tabLayout, viewPager2, ((tab, position) -> tab.setText(getResources().getString(TAB_TITLES[position])))).attach();
 
         if(getSupportActionBar() != null) {
             getSupportActionBar().setElevation(0);
