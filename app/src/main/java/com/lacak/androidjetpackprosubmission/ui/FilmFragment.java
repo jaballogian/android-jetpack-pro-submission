@@ -18,11 +18,6 @@ import com.lacak.androidjetpackprosubmission.utils.ShowsListDataGenerator;
 
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FilmFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class FilmFragment extends Fragment {
 
     private static final String ARG_SECTION_NUMBER = "section_number";
