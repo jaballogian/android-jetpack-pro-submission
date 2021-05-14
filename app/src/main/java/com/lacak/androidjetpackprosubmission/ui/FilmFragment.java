@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import com.lacak.androidjetpackprosubmission.data.FilmEntity;
 import com.lacak.androidjetpackprosubmission.databinding.FragmentFilmBinding;
 import com.lacak.androidjetpackprosubmission.utils.MoviesListDataGenerator;
+import com.lacak.androidjetpackprosubmission.utils.ShowsListDataGenerator;
 
 import java.util.List;
 
@@ -49,17 +50,21 @@ public class FilmFragment extends Fragment {
         if (getArguments() != null) {
             index = getArguments().getInt(ARG_SECTION_NUMBER);
 
+            // ADD DATA TO RECYLER VIEW BASED ON SELECTED TAB
             if(index == 1){
-                addMoviesDataToRecylerView();
+                List<FilmEntity> listFilms = MoviesListDataGenerator.generateMoviesListData();
+                addDataToRecylerView(listFilms);
+            }
+            else if(index == 2){
+                List<FilmEntity> listFilms = ShowsListDataGenerator.generateShowsListData();
+                addDataToRecylerView(listFilms);
             }
         }
     }
 
-    private void addMoviesDataToRecylerView(){
-        List<FilmEntity> listFilms = MoviesListDataGenerator.generateMoviesListData();
-
+    private void addDataToRecylerView(List<FilmEntity> inputList){
         FilmAdapter filmAdapter = new FilmAdapter();
-        filmAdapter.setListFilms(listFilms);
+        filmAdapter.setListFilms(inputList);
 
         fragmentFilmBinding.recylerViewFilm.setLayoutManager(new LinearLayoutManager(getContext()));
         fragmentFilmBinding.recylerViewFilm.setHasFixedSize(true);
