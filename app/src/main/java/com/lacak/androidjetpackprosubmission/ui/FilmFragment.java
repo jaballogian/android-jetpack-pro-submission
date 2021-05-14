@@ -63,7 +63,7 @@ public class FilmFragment extends Fragment {
     }
 
     private void addDataToRecylerView(List<FilmEntity> inputList){
-        FilmAdapter filmAdapter = new FilmAdapter();
+        FilmAdapter filmAdapter = new FilmAdapter(getContext());
         filmAdapter.setListFilms(inputList);
 
         fragmentFilmBinding.recylerViewFilm.setLayoutManager(new LinearLayoutManager(getContext()));

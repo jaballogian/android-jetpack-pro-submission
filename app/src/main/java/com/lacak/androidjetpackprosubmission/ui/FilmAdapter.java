@@ -1,11 +1,13 @@
 package com.lacak.androidjetpackprosubmission.ui;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.lacak.androidjetpackprosubmission.R;
 import com.lacak.androidjetpackprosubmission.data.FilmEntity;
 import com.lacak.androidjetpackprosubmission.databinding.ItemFilmBinding;
 
@@ -14,6 +16,11 @@ import java.util.List;
 
 public class FilmAdapter extends RecyclerView.Adapter<FilmAdapter.FilmViewHolder> {
     private final List<FilmEntity> listFilms = new ArrayList<>();
+    private static Context context;
+
+    public FilmAdapter(Context context){
+        this.context = context;
+    }
 
     void setListFilms(List<FilmEntity> listFilms){
         if(listFilms == null) return;
@@ -51,6 +58,11 @@ public class FilmAdapter extends RecyclerView.Adapter<FilmAdapter.FilmViewHolder
             itemFilmBinding.textViewTitle.setText(filmEntity.getTitle());
             itemFilmBinding.textViewYear.setText(filmEntity.getYear());
             itemFilmBinding.textViewRating.setText(filmEntity.getRating());
+
+            int rating = Integer.parseInt(filmEntity.getRating().replace("%", ""));
+            if(rating < 70){
+                itemFilmBinding.textViewRating.setBackgroundColor(context.getResources().getColor(R.color.yellow_a200));
+            }
         }
     }
 }
