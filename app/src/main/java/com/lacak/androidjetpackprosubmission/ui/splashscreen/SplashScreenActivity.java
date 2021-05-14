@@ -1,4 +1,4 @@
-package com.lacak.androidjetpackprosubmission.ui;
+package com.lacak.androidjetpackprosubmission.ui.splashscreen;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import com.lacak.androidjetpackprosubmission.R;
+import com.lacak.androidjetpackprosubmission.ui.main.MainActivity;
 
 public class SplashScreenActivity extends AppCompatActivity {
 

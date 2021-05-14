@@ -1,9 +1,11 @@
-package com.lacak.androidjetpackprosubmission.ui;
+package com.lacak.androidjetpackprosubmission.ui.main;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
+
+import com.lacak.androidjetpackprosubmission.ui.film.FilmFragment;
 
 public class SectionsPagerAdapter extends FragmentStateAdapter {
 

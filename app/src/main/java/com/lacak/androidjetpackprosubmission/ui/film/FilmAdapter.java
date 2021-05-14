@@ -1,4 +1,4 @@
-package com.lacak.androidjetpackprosubmission.ui;
+package com.lacak.androidjetpackprosubmission.ui.film;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

@@ -1,4 +1,4 @@
-package com.lacak.androidjetpackprosubmission.ui;
+package com.lacak.androidjetpackprosubmission.ui.main;
 
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
