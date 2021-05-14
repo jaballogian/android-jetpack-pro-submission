@@ -34,9 +34,5 @@ public class MainActivity extends AppCompatActivity {
 
         viewPager2.setAdapter(sectionsPagerAdapter);
         new TabLayoutMediator(tabLayout, viewPager2, ((tab, position) -> tab.setText(getResources().getString(TAB_TITLES[position])))).attach();
-
-        if(getSupportActionBar() != null) {
-            getSupportActionBar().setElevation(0);
-        }
     }
 }
