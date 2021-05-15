@@ -19,7 +19,9 @@
 1. Load the selected Movie data
 * Ensure that the data is not null
 * Ensure that the data has the correct value
+* Test the data with empty string data
 
 2. Load the selected TV Show data
 * Ensure that the data is not null
 * Ensure that the data has the correct value
+* Test the data with empty string data

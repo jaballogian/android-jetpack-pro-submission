@@ -3,10 +3,8 @@ package com.lacak.androidjetpackprosubmission.ui.film;
 import com.lacak.androidjetpackprosubmission.data.FilmEntity;
 
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
