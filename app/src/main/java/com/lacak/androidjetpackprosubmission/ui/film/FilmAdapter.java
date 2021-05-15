@@ -63,11 +63,6 @@ public class FilmAdapter extends RecyclerView.Adapter<FilmAdapter.FilmViewHolder
             itemFilmBinding.textViewYear.setText(filmEntity.getYear());
             itemFilmBinding.textViewRating.setText(filmEntity.getRating());
 
-            int rating = Integer.parseInt(filmEntity.getRating().replace("%", ""));
-            if(rating < 70){
-                itemFilmBinding.textViewRating.setBackgroundColor(context.getResources().getColor(R.color.yellow_a200));
-            }
-
             int imageResource = context.getResources().getIdentifier(filmEntity.getImagePath(), null, context.getPackageName());
             itemFilmBinding.imageView.setImageDrawable(context.getResources().getDrawable(imageResource));
 
