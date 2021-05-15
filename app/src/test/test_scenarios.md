@@ -9,3 +9,9 @@
 2. Load a list of TV Shows:
 * Ensure that the list is not null
 * Ensure that the list has the correct size/length
+
+### Detail View Model Test
+
+1. Load the selected film data
+* Ensure that the selected film data is not null
+* Ensure that the selected film data has the correct value
