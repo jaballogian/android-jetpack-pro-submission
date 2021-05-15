@@ -1,4 +1,4 @@
-# UNIT TESTING SCENARIO
+# UNIT TESTING SCENARIOS
 
 ### Film View Model Test
 
@@ -16,12 +16,26 @@
 
 ### Detail View Model Test
 
-1. Load the selected Movie data
+1. Load the selected Movie data:
 * Ensure that the data is not null
 * Ensure that the data has the correct value
 * Test the data with empty string data
 
-2. Load the selected TV Show data
+2. Load the selected TV Show data:
 * Ensure that the data is not null
 * Ensure that the data has the correct value
 * Test the data with empty string data
+
+# INSTRUMENTATION TESTING SCENARIOS
+
+### Film Recycler View
+
+1. Load Movies list data into recyler view:
+* Ensure that the recycler view shows movies list data
+* Scroll the recyler view into half of the list size/length item
+* Scroll the recyler view into the last item
+
+2. Load TV Shows list data into recyler view:
+* Ensure that the recyler view shows tv shows list data
+* Scroll the recyler view into half of the list size/length item
+* Scroll the recyler view into the last item
