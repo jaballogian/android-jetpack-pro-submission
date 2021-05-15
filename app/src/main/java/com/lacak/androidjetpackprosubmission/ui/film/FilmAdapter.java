@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.lacak.androidjetpackprosubmission.R;
 import com.lacak.androidjetpackprosubmission.data.FilmEntity;
 import com.lacak.androidjetpackprosubmission.databinding.ItemFilmBinding;
 import com.lacak.androidjetpackprosubmission.ui.detail.DetailActivity;
