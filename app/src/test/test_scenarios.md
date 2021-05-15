@@ -12,6 +12,10 @@
 
 ### Detail View Model Test
 
-1. Load the selected film data
-* Ensure that the selected film data is not null
-* Ensure that the selected film data has the correct value
+1. Load the selected Movie data
+* Ensure that the data is not null
+* Ensure that the data has the correct value
+
+2. Load the selected TV Show data
+* Ensure that the data is not null
+* Ensure that the data has the correct value
