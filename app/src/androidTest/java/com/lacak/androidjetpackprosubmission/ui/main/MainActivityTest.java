@@ -34,20 +34,39 @@ public class MainActivityTest {
     }
 
     @Test
-    public void loadDetailMovie(){
-        onView(withId(R.id.recyler_view_film)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
+    public void loadDetailMovieAtFirstIndex(){
+        int selectedIndex = 0;
+        onView(withId(R.id.recyler_view_film)).perform(RecyclerViewActions.actionOnItemAtPosition(selectedIndex, click()));
         onView(withId(R.id.text_view_title)).check(matches(isDisplayed()));
-        onView(withId(R.id.text_view_title)).check(matches(withText(sampleMoviesList.get(0).getTitle())));
+        onView(withId(R.id.text_view_title)).check(matches(withText(sampleMoviesList.get(selectedIndex).getTitle())));
         onView(withId(R.id.text_view_genres)).check(matches(isDisplayed()));
-        onView(withId(R.id.text_view_genres)).check(matches(withText(sampleMoviesList.get(0).getGenres())));
+        onView(withId(R.id.text_view_genres)).check(matches(withText(sampleMoviesList.get(selectedIndex).getGenres())));
         onView(withId(R.id.text_view_year)).check(matches(isDisplayed()));
-        onView(withId(R.id.text_view_year)).check(matches(withText(sampleMoviesList.get(0).getYear())));
+        onView(withId(R.id.text_view_year)).check(matches(withText(sampleMoviesList.get(selectedIndex).getYear())));
         onView(withId(R.id.text_view_rating)).check(matches(isDisplayed()));
-        onView(withId(R.id.text_view_rating)).check(matches(withText(sampleMoviesList.get(0).getRating())));
+        onView(withId(R.id.text_view_rating)).check(matches(withText(sampleMoviesList.get(selectedIndex).getRating())));
         onView(withId(R.id.text_view_duration)).check(matches(isDisplayed()));
-        onView(withId(R.id.text_view_duration)).check(matches(withText(sampleMoviesList.get(0).getDuration())));
+        onView(withId(R.id.text_view_duration)).check(matches(withText(sampleMoviesList.get(selectedIndex).getDuration())));
         onView(withId(R.id.text_view_overview)).check(matches(isDisplayed()));
-        onView(withId(R.id.text_view_overview)).check(matches(withText(sampleMoviesList.get(0).getOverview())));
+        onView(withId(R.id.text_view_overview)).check(matches(withText(sampleMoviesList.get(selectedIndex).getOverview())));
+    }
+
+    @Test
+    public void loadDetailMovieAtLastIndex(){
+        int selectedIndex = sampleMoviesList.size() - 1;
+        onView(withId(R.id.recyler_view_film)).perform(RecyclerViewActions.actionOnItemAtPosition(selectedIndex, click()));
+        onView(withId(R.id.text_view_title)).check(matches(isDisplayed()));
+        onView(withId(R.id.text_view_title)).check(matches(withText(sampleMoviesList.get(selectedIndex).getTitle())));
+        onView(withId(R.id.text_view_genres)).check(matches(isDisplayed()));
+        onView(withId(R.id.text_view_genres)).check(matches(withText(sampleMoviesList.get(selectedIndex).getGenres())));
+        onView(withId(R.id.text_view_year)).check(matches(isDisplayed()));
+        onView(withId(R.id.text_view_year)).check(matches(withText(sampleMoviesList.get(selectedIndex).getYear())));
+        onView(withId(R.id.text_view_rating)).check(matches(isDisplayed()));
+        onView(withId(R.id.text_view_rating)).check(matches(withText(sampleMoviesList.get(selectedIndex).getRating())));
+        onView(withId(R.id.text_view_duration)).check(matches(isDisplayed()));
+        onView(withId(R.id.text_view_duration)).check(matches(withText(sampleMoviesList.get(selectedIndex).getDuration())));
+        onView(withId(R.id.text_view_overview)).check(matches(isDisplayed()));
+        onView(withId(R.id.text_view_overview)).check(matches(withText(sampleMoviesList.get(selectedIndex).getOverview())));
     }
 
 }
