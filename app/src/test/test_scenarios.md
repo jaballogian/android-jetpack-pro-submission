@@ -34,3 +34,12 @@
 * Ensure that the recycler view shows movies list data
 * Scroll the recyler view into half of the list size/length item
 * Scroll the recyler view into the last item
+
+### Detail Activity
+1. Load the first index film data from recyler view:
+* Ensure that all dynamic text views in Detail Activity is shown
+* Ensure that all dynamic text views in Detail Activity shows the correct data
+
+2. Load the last index film data from recyler view:
+* Ensure that all dynamic text views in Detail Activity is shown
+* Ensure that all dynamic text views in Detail Activity shows the correct data
