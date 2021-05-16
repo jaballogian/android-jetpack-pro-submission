@@ -34,8 +34,3 @@
 * Ensure that the recycler view shows movies list data
 * Scroll the recyler view into half of the list size/length item
 * Scroll the recyler view into the last item
-
-2. Load TV Shows list data into recyler view:
-* Ensure that the recyler view shows tv shows list data
-* Scroll the recyler view into half of the list size/length item
-* Scroll the recyler view into the last item
