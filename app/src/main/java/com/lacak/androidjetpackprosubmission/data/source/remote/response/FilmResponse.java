@@ -1,6 +1,9 @@
 package com.lacak.androidjetpackprosubmission.data.source.remote.response;
 
-public class FilmResponse {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class FilmResponse implements Parcelable {
     private String title, year, genres, duration, rating, overview, url, imagePath;
 
     public FilmResponse(String title, String year, String genres, String duration, String rating, String overview, String url, String imagePath) {
@@ -77,4 +80,44 @@ public class FilmResponse {
     public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(title);
+        dest.writeString(year);
+        dest.writeString(genres);
+        dest.writeString(duration);
+        dest.writeString(rating);
+        dest.writeString(overview);
+        dest.writeString(url);
+        dest.writeString(imagePath);
+    }
+
+    protected FilmResponse(Parcel in) {
+        title = in.readString();
+        year = in.readString();
+        genres = in.readString();
+        duration = in.readString();
+        rating = in.readString();
+        overview = in.readString();
+        url = in.readString();
+        imagePath = in.readString();
+    }
+
+    public static final Creator<FilmResponse> CREATOR = new Creator<FilmResponse>() {
+        @Override
+        public FilmResponse createFromParcel(Parcel in) {
+            return new FilmResponse(in);
+        }
+
+        @Override
+        public FilmResponse[] newArray(int size) {
+            return new FilmResponse[size];
+        }
+    };
 }
