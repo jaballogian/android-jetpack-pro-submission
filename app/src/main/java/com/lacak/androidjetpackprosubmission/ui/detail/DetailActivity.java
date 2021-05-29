@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import com.lacak.androidjetpackprosubmission.data.FilmEntity;
 import com.lacak.androidjetpackprosubmission.databinding.ActivityDetailBinding;
+import com.lacak.androidjetpackprosubmission.viewmodel.ViewModelFactory;
 
 public class DetailActivity extends AppCompatActivity {
 
@@ -19,15 +20,16 @@ public class DetailActivity extends AppCompatActivity {
         activityDetailBinding = ActivityDetailBinding.inflate(getLayoutInflater());
         setContentView(activityDetailBinding.getRoot());
 
-        DetailViewModel detailViewModel = new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(DetailViewModel.class);
+        ViewModelFactory viewModelFactory= ViewModelFactory.getInstance(this);
+        DetailViewModel detailViewModel = new ViewModelProvider(this, viewModelFactory).get(DetailViewModel.class);
 
         FilmEntity filmEntity = getIntent().getParcelableExtra(EXTRA_FILM);
 
         if(filmEntity != null){
-            detailViewModel.setFilmEntity(filmEntity);
+            detailViewModel.setSelectedFilm(filmEntity.getTitle());
         }
         else {
-            filmEntity = detailViewModel.getFilmEntity();
+            filmEntity = detailViewModel.getSelectedFilm();
         }
 
         activityDetailBinding.textViewTitle.setText(filmEntity.getTitle());
