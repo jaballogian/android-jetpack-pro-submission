@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 
 import com.lacak.androidjetpackprosubmission.data.FilmEntity;
 import com.lacak.androidjetpackprosubmission.databinding.FragmentFilmBinding;
+import com.lacak.androidjetpackprosubmission.viewmodel.ViewModelFactory;
 
 import java.util.List;
 
@@ -44,7 +45,9 @@ public class FilmFragment extends Fragment {
         if (getArguments() != null) {
             index = getArguments().getInt(ARG_SECTION_NUMBER);
 
-            FilmViewModel filmViewModel = new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(FilmViewModel.class);
+            ViewModelFactory viewModelFactory = ViewModelFactory.getInstance(getActivity());
+            FilmViewModel filmViewModel = new ViewModelProvider(this, viewModelFactory).get(FilmViewModel.class);
+
             // ADD DATA TO RECYLER VIEW BASED ON SELECTED TAB
             if(index == 1){
                 List<FilmEntity> listFilms = filmViewModel.getMoviesListData();
