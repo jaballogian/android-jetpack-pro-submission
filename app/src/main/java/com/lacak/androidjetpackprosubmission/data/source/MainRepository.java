@@ -66,4 +66,42 @@ public class MainRepository implements MainDataSource{
         }
         return showsList;
     }
+
+    @Override
+    public FilmEntity getDetailFilm(final String title) {
+        List<FilmResponse> movieResponses = remoteDataSource.getAllMovies();
+        FilmEntity film = null;
+        for (FilmResponse response : movieResponses) {
+            if (response.getTitle().equals(title)) {
+                film = new FilmEntity(
+                    response.getTitle(),
+                    response.getYear(),
+                    response.getGenres(),
+                    response.getDuration(),
+                    response.getRating(),
+                    response.getOverview(),
+                    response.getUrl(),
+                    response.getImagePath());
+            }
+        }
+
+        if(film == null){
+            List<FilmResponse> showResponses = remoteDataSource.getAllShows();
+            for (FilmResponse response : showResponses) {
+                if (response.getTitle().equals(title)) {
+                    film = new FilmEntity(
+                        response.getTitle(),
+                        response.getYear(),
+                        response.getGenres(),
+                        response.getDuration(),
+                        response.getRating(),
+                        response.getOverview(),
+                        response.getUrl(),
+                        response.getImagePath());
+                }
+            }
+            return film;
+        }
+        return film;
+    }
 }
