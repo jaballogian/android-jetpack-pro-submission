@@ -8,4 +8,6 @@ public interface MainDataSource {
     List<FilmEntity> getAllMovies();
 
     List<FilmEntity> getAllShows();
+
+    FilmEntity getDetailFilm(String title);
 }
