@@ -3,15 +3,21 @@ package com.lacak.androidjetpackprosubmission.ui.detail;
 import androidx.lifecycle.ViewModel;
 
 import com.lacak.androidjetpackprosubmission.data.FilmEntity;
+import com.lacak.androidjetpackprosubmission.data.source.MainRepository;
 
 public class DetailViewModel extends ViewModel {
-    private FilmEntity filmEntity;
+    private String title;
+    private MainRepository mainRepository;
 
-    public FilmEntity getFilmEntity() {
-        return filmEntity;
+    public DetailViewModel(MainRepository mainRepository){
+        this.mainRepository = mainRepository;
     }
 
-    public void setFilmEntity(FilmEntity filmEntity) {
-        this.filmEntity = filmEntity;
+    public void setSelectedFilm(String title){
+        this.title = title;
+    }
+
+    public FilmEntity getSelectedFilm(){
+        return mainRepository.getDetailFilm(title);
     }
 }
