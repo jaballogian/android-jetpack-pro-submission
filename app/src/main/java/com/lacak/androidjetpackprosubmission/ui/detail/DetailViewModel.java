@@ -1,5 +1,6 @@
 package com.lacak.androidjetpackprosubmission.ui.detail;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.lacak.androidjetpackprosubmission.data.FilmEntity;
@@ -17,7 +18,7 @@ public class DetailViewModel extends ViewModel {
         this.title = title;
     }
 
-    public FilmEntity getSelectedFilm(){
+    public LiveData<FilmEntity> getSelectedFilm(){
         return mainRepository.getDetailFilm(title);
     }
 }
