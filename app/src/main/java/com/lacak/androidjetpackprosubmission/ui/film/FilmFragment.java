@@ -48,14 +48,20 @@ public class FilmFragment extends Fragment {
             ViewModelFactory viewModelFactory = ViewModelFactory.getInstance(getActivity());
             FilmViewModel filmViewModel = new ViewModelProvider(this, viewModelFactory).get(FilmViewModel.class);
 
+            fragmentFilmBinding.progressBar.setVisibility(View.VISIBLE);
+
             // ADD DATA TO RECYLER VIEW BASED ON SELECTED TAB
             if(index == 1){
-                List<FilmEntity> listFilms = filmViewModel.getMoviesListData();
-                addDataToRecylerView(listFilms);
+                filmViewModel.getMoviesListData().observe(this, movies -> {
+                    fragmentFilmBinding.progressBar.setVisibility(View.GONE);
+                    addDataToRecylerView(movies);
+                });
             }
             else if(index == 2){
-                List<FilmEntity> listFilms = filmViewModel.getShowsListData();
-                addDataToRecylerView(listFilms);
+                filmViewModel.getShowsListData().observe(this, shows -> {
+                    fragmentFilmBinding.progressBar.setVisibility(View.GONE);
+                    addDataToRecylerView(shows);
+                });
             }
         }
     }
@@ -63,6 +69,7 @@ public class FilmFragment extends Fragment {
     private void addDataToRecylerView(List<FilmEntity> inputList){
         FilmAdapter filmAdapter = new FilmAdapter(getContext());
         filmAdapter.setListFilms(inputList);
+        filmAdapter.notifyDataSetChanged();
 
         fragmentFilmBinding.recylerViewFilm.setLayoutManager(new LinearLayoutManager(getContext()));
         fragmentFilmBinding.recylerViewFilm.setHasFixedSize(true);
