@@ -1,5 +1,6 @@
 package com.lacak.androidjetpackprosubmission.ui.film;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.lacak.androidjetpackprosubmission.data.FilmEntity;
@@ -15,11 +16,11 @@ public class FilmViewModel extends ViewModel {
         this.mainRepository = mainRepository;
     }
 
-    public List<FilmEntity> getMoviesListData(){
+    public LiveData<List<FilmEntity>> getMoviesListData(){
         return mainRepository.getAllMovies();
     }
 
-    public List<FilmEntity> getShowsListData(){
+    public LiveData<List<FilmEntity>> getShowsListData(){
         return mainRepository.getAllShows();
     }
 }
