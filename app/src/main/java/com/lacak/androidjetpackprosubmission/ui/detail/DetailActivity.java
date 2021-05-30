@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
+import android.view.View;
 
 import com.lacak.androidjetpackprosubmission.data.FilmEntity;
 import com.lacak.androidjetpackprosubmission.databinding.ActivityDetailBinding;
@@ -26,20 +27,25 @@ public class DetailActivity extends AppCompatActivity {
         FilmEntity filmEntity = getIntent().getParcelableExtra(EXTRA_FILM);
 
         if(filmEntity != null){
+            activityDetailBinding.progressBar.setVisibility(View.VISIBLE);
+
             detailViewModel.setSelectedFilm(filmEntity.getTitle());
+            detailViewModel.getSelectedFilm().observe(this, filmEntityData -> {
+                populateData(filmEntityData);
+            });
         }
-        else {
-            filmEntity = detailViewModel.getSelectedFilm();
-        }
+    }
 
-        activityDetailBinding.textViewTitle.setText(filmEntity.getTitle());
-        activityDetailBinding.textViewGenres.setText(filmEntity.getGenres());
-        activityDetailBinding.textViewYear.setText(filmEntity.getYear());
-        activityDetailBinding.textViewRating.setText(filmEntity.getRating());
-        activityDetailBinding.textViewDuration.setText(filmEntity.getDuration());
-        activityDetailBinding.textViewOverview.setText(filmEntity.getOverview());
+    private void populateData(FilmEntity inputFilmEntity){
+        activityDetailBinding.progressBar.setVisibility(View.GONE);
+        activityDetailBinding.textViewTitle.setText(inputFilmEntity.getTitle());
+        activityDetailBinding.textViewGenres.setText(inputFilmEntity.getGenres());
+        activityDetailBinding.textViewYear.setText(inputFilmEntity.getYear());
+        activityDetailBinding.textViewRating.setText(inputFilmEntity.getRating());
+        activityDetailBinding.textViewDuration.setText(inputFilmEntity.getDuration());
+        activityDetailBinding.textViewOverview.setText(inputFilmEntity.getOverview());
 
-        int imageResource = getResources().getIdentifier(filmEntity.getImagePath(), null, getPackageName());
+        int imageResource = getResources().getIdentifier(inputFilmEntity.getImagePath(), null, getPackageName());
         activityDetailBinding.imageView.setImageDrawable(getResources().getDrawable(imageResource));
     }
 }
