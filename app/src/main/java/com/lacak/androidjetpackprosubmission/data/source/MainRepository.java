@@ -13,7 +13,6 @@ import java.util.List;
 
 public class MainRepository implements MainDataSource{
     private volatile static MainRepository INSTANCE = null;
-
     private final RemoteDataSource remoteDataSource;
 
     private MainRepository(@NonNull RemoteDataSource remoteDataSource){
@@ -80,30 +79,30 @@ public class MainRepository implements MainDataSource{
     @Override
     public LiveData<FilmEntity> getDetailFilm(final String title) {
         MutableLiveData<FilmEntity> detailFilmResult = new MutableLiveData<>();
+
         remoteDataSource.getAllMovies(movieResponses -> {
-            FilmEntity film = null;
+            FilmEntity movie = null;
             for (FilmResponse response : movieResponses) {
                 if (response.getTitle().equals(title)) {
-                    film = new FilmEntity(
-                            response.getTitle(),
-                            response.getYear(),
-                            response.getGenres(),
-                            response.getDuration(),
-                            response.getRating(),
-                            response.getOverview(),
-                            response.getUrl(),
-                            response.getImagePath());
+                    movie = new FilmEntity(
+                        response.getTitle(),
+                        response.getYear(),
+                        response.getGenres(),
+                        response.getDuration(),
+                        response.getRating(),
+                        response.getOverview(),
+                        response.getUrl(),
+                        response.getImagePath()
+                    );
                 }
             }
-            detailFilmResult.postValue(film);
-        });
 
-        if(detailFilmResult == null){
-            remoteDataSource.getAllShows(showResponses -> {
-                FilmEntity film = null;
-                for (FilmResponse response : showResponses) {
-                    if (response.getTitle().equals(title)) {
-                        film = new FilmEntity(
+            if(movie == null){
+                remoteDataSource.getAllShows(showResponses -> {
+                    FilmEntity show = null;
+                    for (FilmResponse response : showResponses) {
+                        if (response.getTitle().equals(title)) {
+                            show = new FilmEntity(
                                 response.getTitle(),
                                 response.getYear(),
                                 response.getGenres(),
@@ -111,13 +110,18 @@ public class MainRepository implements MainDataSource{
                                 response.getRating(),
                                 response.getOverview(),
                                 response.getUrl(),
-                                response.getImagePath());
+                                response.getImagePath()
+                            );
+                        }
                     }
-                }
-                detailFilmResult.postValue(film);
-            });
+                    detailFilmResult.postValue(show);
+                });
+            }
+            else {
+                detailFilmResult.postValue(movie);
+            }
+        });
 
-        }
         return detailFilmResult;
     }
 }
