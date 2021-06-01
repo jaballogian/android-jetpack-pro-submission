@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FakeMainRepository implements MainDataSource{
-    private volatile static FakeMainRepository INSTANCE = null;
     private final RemoteDataSource remoteDataSource;
 
     FakeMainRepository(@NonNull RemoteDataSource remoteDataSource){
