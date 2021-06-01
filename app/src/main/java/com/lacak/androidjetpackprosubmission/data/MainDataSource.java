@@ -1,4 +1,4 @@
-package com.lacak.androidjetpackprosubmission.data.source;
+package com.lacak.androidjetpackprosubmission.data;
 
 import androidx.lifecycle.LiveData;
 

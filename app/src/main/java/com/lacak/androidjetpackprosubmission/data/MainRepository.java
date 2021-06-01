@@ -1,10 +1,9 @@
-package com.lacak.androidjetpackprosubmission.data.source;
+package com.lacak.androidjetpackprosubmission.data;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.lacak.androidjetpackprosubmission.data.FilmEntity;
 import com.lacak.androidjetpackprosubmission.data.source.remote.RemoteDataSource;
 import com.lacak.androidjetpackprosubmission.data.source.remote.response.FilmResponse;
 

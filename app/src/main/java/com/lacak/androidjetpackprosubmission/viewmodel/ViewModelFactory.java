@@ -6,7 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.lacak.androidjetpackprosubmission.data.source.MainRepository;
+import com.lacak.androidjetpackprosubmission.data.MainRepository;
 import com.lacak.androidjetpackprosubmission.di.Injection;
 import com.lacak.androidjetpackprosubmission.ui.detail.DetailViewModel;
 import com.lacak.androidjetpackprosubmission.ui.film.FilmViewModel;

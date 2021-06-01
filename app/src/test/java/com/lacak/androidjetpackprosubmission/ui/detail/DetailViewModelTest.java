@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 
 import com.lacak.androidjetpackprosubmission.data.FilmEntity;
-import com.lacak.androidjetpackprosubmission.data.source.MainRepository;
+import com.lacak.androidjetpackprosubmission.data.MainRepository;
 import com.lacak.androidjetpackprosubmission.utils.MoviesListDataGenerator;
 import com.lacak.androidjetpackprosubmission.utils.ShowsListDataGenerator;
 

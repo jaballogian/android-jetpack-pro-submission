@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.lacak.androidjetpackprosubmission.data.FilmEntity;
-import com.lacak.androidjetpackprosubmission.data.source.MainRepository;
+import com.lacak.androidjetpackprosubmission.data.MainRepository;
 
 import java.util.List;
 
