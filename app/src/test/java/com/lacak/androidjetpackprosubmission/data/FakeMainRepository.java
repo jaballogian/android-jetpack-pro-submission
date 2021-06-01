@@ -14,17 +14,8 @@ public class FakeMainRepository implements MainDataSource{
     private volatile static FakeMainRepository INSTANCE = null;
     private final RemoteDataSource remoteDataSource;
 
-    private FakeMainRepository(@NonNull RemoteDataSource remoteDataSource){
+    FakeMainRepository(@NonNull RemoteDataSource remoteDataSource){
         this.remoteDataSource = remoteDataSource;
-    }
-
-    public static FakeMainRepository getInstance(RemoteDataSource remoteDataSource){
-        if(INSTANCE == null){
-            synchronized (FakeMainRepository.class){
-                INSTANCE = new FakeMainRepository(remoteDataSource);
-            }
-        }
-        return INSTANCE;
     }
 
     @Override
