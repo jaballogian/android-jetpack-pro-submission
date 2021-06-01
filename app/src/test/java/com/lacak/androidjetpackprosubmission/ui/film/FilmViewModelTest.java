@@ -1,59 +1,50 @@
 package com.lacak.androidjetpackprosubmission.ui.film;
 
 import com.lacak.androidjetpackprosubmission.data.FilmEntity;
+import com.lacak.androidjetpackprosubmission.data.source.MainRepository;
+import com.lacak.androidjetpackprosubmission.utils.MoviesListDataGenerator;
+import com.lacak.androidjetpackprosubmission.utils.ShowsListDataGenerator;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.List;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
+@RunWith(MockitoJUnitRunner.class)
 public class FilmViewModelTest {
 
     private FilmViewModel filmViewModel;
 
+    @Mock
+    private MainRepository mainRepository;
+
     @Before
     public void setUp(){
-        filmViewModel = new FilmViewModel();
+        filmViewModel = new FilmViewModel(mainRepository);
     }
 
     @Test
     public void getMoviesListData() {
-        // TEST WITH FULL DATA
+        when(mainRepository.getAllMovies()).thenReturn(MoviesListDataGenerator.generateMoviesListData());
         List<FilmEntity> moviesList = filmViewModel.getMoviesListData();
+        verify(mainRepository.getAllMovies());
         assertNotNull(moviesList);
         assertEquals(10, moviesList.size());
-
-        // TEST WITH HALF DATA
-        List<FilmEntity> halfMoviesList = filmViewModel.getMoviesListData().subList(0, 5);
-        assertNotNull(halfMoviesList);
-        assertEquals(5, halfMoviesList.size());
-
-        // TEST WITH ZERO DATA
-        List<FilmEntity> zeroMoviesList = filmViewModel.getMoviesListData().subList(0, 0);
-        assertNotNull(zeroMoviesList);
-        assertEquals(0, zeroMoviesList.size());
     }
 
     @Test
     public void getShowsListData() {
-        // TEST WITH FULL DATA
+        when(mainRepository.getAllShows()).thenReturn(ShowsListDataGenerator.generateShowsListData());
         List<FilmEntity> showsList = filmViewModel.getShowsListData();
+        verify(mainRepository.getAllShows());
         assertNotNull(showsList);
         assertEquals(10, showsList.size());
-
-        // TEST WITH HALF DATA
-        List<FilmEntity> halfShowsList = filmViewModel.getShowsListData().subList(0, 5);
-        assertNotNull(halfShowsList);
-        assertEquals(5, halfShowsList.size());
-
-        // TEST WITH ZERO DATA
-        List<FilmEntity> zeroShowsList = filmViewModel.getShowsListData().subList(0, 0);
-        assertNotNull(zeroShowsList);
-        assertEquals(0, zeroShowsList.size());
     }
-
-
-
 }
