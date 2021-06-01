@@ -1,80 +1,65 @@
 package com.lacak.androidjetpackprosubmission.ui.detail;
 
 import com.lacak.androidjetpackprosubmission.data.FilmEntity;
+import com.lacak.androidjetpackprosubmission.data.source.MainRepository;
 import com.lacak.androidjetpackprosubmission.utils.MoviesListDataGenerator;
 import com.lacak.androidjetpackprosubmission.utils.ShowsListDataGenerator;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
+@RunWith(MockitoJUnitRunner.class)
 public class DetailViewModelTest {
 
-    private DetailViewModel detailMovieViewModel, detailShowViewModel, emptyMovieViewModel, emptyShowViewModel;
+    private DetailViewModel detailMovieViewModel, detailShowViewModel;
     private FilmEntity sampleMovieEntity = MoviesListDataGenerator.generateMoviesListData().get(0);
     private FilmEntity sampleShowEntity = ShowsListDataGenerator.generateShowsListData().get(0);
-    private FilmEntity emptyFilmEntity = new FilmEntity("", "", "", "", "", "", "", "");
+
+    @Mock
+    private MainRepository mainRepository;
 
     @Before
     public void setUp(){
-        detailMovieViewModel = new DetailViewModel();
-        detailMovieViewModel.setFilmEntity(sampleMovieEntity);
+        detailMovieViewModel = new DetailViewModel(mainRepository);
+        detailMovieViewModel.setSelectedFilm(sampleMovieEntity.getTitle());
 
-        detailShowViewModel = new DetailViewModel();
-        detailShowViewModel.setFilmEntity(sampleShowEntity);
-
-        emptyMovieViewModel = new DetailViewModel();
-        emptyMovieViewModel.setFilmEntity(emptyFilmEntity);
-
-        emptyShowViewModel = new DetailViewModel();
-        emptyShowViewModel.setFilmEntity(emptyFilmEntity);
+        detailShowViewModel = new DetailViewModel(mainRepository);
+        detailShowViewModel.setSelectedFilm(sampleShowEntity.getTitle());
     }
 
     @Test
     public void getFilmEntity() {
-        // TEST SELECTED MOVIE WITH SAMPLE MOVIE DATA
-        assertNotNull(sampleMovieEntity);
-        assertEquals(sampleMovieEntity.getTitle(), detailMovieViewModel.getFilmEntity().getTitle());
-        assertEquals(sampleMovieEntity.getGenres(), detailMovieViewModel.getFilmEntity().getGenres());
-        assertEquals(sampleMovieEntity.getYear(), detailMovieViewModel.getFilmEntity().getYear());
-        assertEquals(sampleMovieEntity.getRating(), detailMovieViewModel.getFilmEntity().getRating());
-        assertEquals(sampleMovieEntity.getDuration(), detailMovieViewModel.getFilmEntity().getDuration());
-        assertEquals(sampleMovieEntity.getOverview(), detailMovieViewModel.getFilmEntity().getOverview());
-        assertEquals(sampleMovieEntity.getImagePath(), detailMovieViewModel.getFilmEntity().getImagePath());
-        assertEquals(sampleMovieEntity.getUrl(), detailMovieViewModel.getFilmEntity().getUrl());
+        when(mainRepository.getDetailFilm(sampleMovieEntity.getTitle())).thenReturn(sampleMovieEntity);
+        FilmEntity movieEntity = detailMovieViewModel.getSelectedFilm();
+        verify(mainRepository).getDetailFilm(sampleMovieEntity.getTitle());
+        assertNotNull(movieEntity);
+        assertEquals(sampleMovieEntity.getTitle(), movieEntity.getTitle());
+        assertEquals(sampleMovieEntity.getGenres(), movieEntity.getGenres());
+        assertEquals(sampleMovieEntity.getYear(), movieEntity.getYear());
+        assertEquals(sampleMovieEntity.getRating(), movieEntity.getRating());
+        assertEquals(sampleMovieEntity.getDuration(), movieEntity.getDuration());
+        assertEquals(sampleMovieEntity.getOverview(), movieEntity.getOverview());
+        assertEquals(sampleMovieEntity.getImagePath(), movieEntity.getImagePath());
+        assertEquals(sampleMovieEntity.getUrl(), movieEntity.getUrl());
 
-        // TEST SELECTED TV SHOW WITH SAMPLE TV SHOW DATA
-        assertNotNull(sampleShowEntity);
-        assertEquals(sampleShowEntity.getTitle(), detailShowViewModel.getFilmEntity().getTitle());
-        assertEquals(sampleShowEntity.getGenres(), detailShowViewModel.getFilmEntity().getGenres());
-        assertEquals(sampleShowEntity.getYear(), detailShowViewModel.getFilmEntity().getYear());
-        assertEquals(sampleShowEntity.getRating(), detailShowViewModel.getFilmEntity().getRating());
-        assertEquals(sampleShowEntity.getDuration(), detailShowViewModel.getFilmEntity().getDuration());
-        assertEquals(sampleShowEntity.getOverview(), detailShowViewModel.getFilmEntity().getOverview());
-        assertEquals(sampleShowEntity.getImagePath(), detailShowViewModel.getFilmEntity().getImagePath());
-        assertEquals(sampleShowEntity.getUrl(), detailShowViewModel.getFilmEntity().getUrl());
-
-        // TEST SELECTED MOVIE WITH SAMPLE EMPTY STRING DATA
-        assertNotNull(emptyFilmEntity);
-        assertEquals(emptyFilmEntity.getTitle(), emptyMovieViewModel.getFilmEntity().getTitle());
-        assertEquals(emptyFilmEntity.getGenres(), emptyMovieViewModel.getFilmEntity().getGenres());
-        assertEquals(emptyFilmEntity.getYear(), emptyMovieViewModel.getFilmEntity().getYear());
-        assertEquals(emptyFilmEntity.getRating(), emptyMovieViewModel.getFilmEntity().getRating());
-        assertEquals(emptyFilmEntity.getDuration(), emptyMovieViewModel.getFilmEntity().getDuration());
-        assertEquals(emptyFilmEntity.getOverview(), emptyMovieViewModel.getFilmEntity().getOverview());
-        assertEquals(emptyFilmEntity.getImagePath(), emptyMovieViewModel.getFilmEntity().getImagePath());
-        assertEquals(emptyFilmEntity.getUrl(), emptyMovieViewModel.getFilmEntity().getUrl());
-
-        // TEST SELECTED TV SHOW WITH SAMPLE EMPTY STRING DATA
-        assertNotNull(emptyFilmEntity);
-        assertEquals(emptyFilmEntity.getTitle(), emptyShowViewModel.getFilmEntity().getTitle());
-        assertEquals(emptyFilmEntity.getGenres(), emptyShowViewModel.getFilmEntity().getGenres());
-        assertEquals(emptyFilmEntity.getYear(), emptyShowViewModel.getFilmEntity().getYear());
-        assertEquals(emptyFilmEntity.getRating(), emptyShowViewModel.getFilmEntity().getRating());
-        assertEquals(emptyFilmEntity.getDuration(), emptyShowViewModel.getFilmEntity().getDuration());
-        assertEquals(emptyFilmEntity.getOverview(), emptyShowViewModel.getFilmEntity().getOverview());
-        assertEquals(emptyFilmEntity.getImagePath(), emptyShowViewModel.getFilmEntity().getImagePath());
-        assertEquals(emptyFilmEntity.getUrl(), emptyShowViewModel.getFilmEntity().getUrl());
+        when(mainRepository.getDetailFilm(sampleShowEntity.getTitle())).thenReturn(sampleShowEntity);
+        FilmEntity showEntity = detailShowViewModel.getSelectedFilm();
+        verify(mainRepository).getDetailFilm(sampleShowEntity.getTitle());
+        assertNotNull(showEntity);
+        assertEquals(sampleShowEntity.getTitle(), showEntity.getTitle());
+        assertEquals(sampleShowEntity.getGenres(), showEntity.getGenres());
+        assertEquals(sampleShowEntity.getYear(), showEntity.getYear());
+        assertEquals(sampleShowEntity.getRating(), showEntity.getRating());
+        assertEquals(sampleShowEntity.getDuration(), showEntity.getDuration());
+        assertEquals(sampleShowEntity.getOverview(), showEntity.getOverview());
+        assertEquals(sampleShowEntity.getImagePath(), showEntity.getImagePath());
+        assertEquals(sampleShowEntity.getUrl(), showEntity.getUrl());
     }
 }
