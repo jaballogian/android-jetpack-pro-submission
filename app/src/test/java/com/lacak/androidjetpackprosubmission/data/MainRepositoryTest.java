@@ -27,10 +27,8 @@ public class MainRepositoryTest {
     private FakeMainRepository fakeMainRepository = new FakeMainRepository(remoteDataSource);
 
     private List<FilmResponse> movieResponses = MoviesListDataGenerator.generateRemoteDummyMoviesListData();
-    private String movieTitle = movieResponses.get(0).getTitle();
 
     private List<FilmResponse> showResponses = ShowsListDataGenerator.generateRemoteDummyShowsListData();
-    private String showTitle = showResponses.get(0).getTitle();
 
     @Test
     public void getAllMovies(){
@@ -62,10 +60,10 @@ public class MainRepositoryTest {
             ((RemoteDataSource.LoadMoviesCallback) invocation.getArguments()[0]).onAllMoviesReceived(movieResponses);
             return null;
         }).when(remoteDataSource).getAllMovies(any(RemoteDataSource.LoadMoviesCallback.class));
-        FilmEntity movieEntity = LiveDataTestUtil.getValue(fakeMainRepository.getDetailFilm(movieTitle));
+        List<FilmEntity> movieEntities = LiveDataTestUtil.getValue(fakeMainRepository.getAllMovies());
         verify(remoteDataSource).getAllMovies(any(RemoteDataSource.LoadMoviesCallback.class));
-        assertNotNull(movieEntity);
-        assertEquals(movieResponses.get(0).getTitle(), movieEntity.getTitle());
+        assertNotNull(movieEntities);
+        assertEquals(movieResponses.get(0).getTitle(), movieEntities.get(0).getTitle());
     }
 
     @Test
@@ -74,9 +72,9 @@ public class MainRepositoryTest {
             ((RemoteDataSource.LoadShowsCallback) invocation.getArguments()[0]).onAllShowsReceived(showResponses);
             return null;
         }).when(remoteDataSource).getAllShows(any(RemoteDataSource.LoadShowsCallback.class));
-        FilmEntity showEntity = LiveDataTestUtil.getValue(fakeMainRepository.getDetailFilm(showTitle));
+        List<FilmEntity> showEntities = LiveDataTestUtil.getValue(fakeMainRepository.getAllShows());
         verify(remoteDataSource).getAllShows(any(RemoteDataSource.LoadShowsCallback.class));
-        assertNotNull(showEntity);
-        assertEquals(showResponses.get(0).getTitle(), showEntity.getTitle());
+        assertNotNull(showEntities);
+        assertEquals(showResponses.get(0).getTitle(), showEntities.get(0).getTitle());
     }
 }
