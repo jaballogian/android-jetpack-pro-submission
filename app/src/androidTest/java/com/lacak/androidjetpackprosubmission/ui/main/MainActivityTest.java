@@ -28,6 +28,7 @@ public class MainActivityTest {
 
     @Test
     public void loadMovies(){
+        delayTwoSecond();
         onView(withId(R.id.recyler_view_film)).check(matches(isDisplayed()));
         onView(withId(R.id.recyler_view_film)).perform(RecyclerViewActions.scrollToPosition(sampleMoviesList.size()/2 - 1)); // HALF INDEX = INDEX 4
         onView(withId(R.id.recyler_view_film)).perform(RecyclerViewActions.scrollToPosition(sampleMoviesList.size() - 1)); // LAST INDEX = INDEX 9
@@ -35,8 +36,10 @@ public class MainActivityTest {
 
     @Test
     public void loadDetailMovieAtFirstIndex(){
+        delayTwoSecond();
         int selectedIndex = 0;
         onView(withId(R.id.recyler_view_film)).perform(RecyclerViewActions.actionOnItemAtPosition(selectedIndex, click()));
+        delayTwoSecond();
         onView(withId(R.id.text_view_title)).check(matches(isDisplayed()));
         onView(withId(R.id.text_view_title)).check(matches(withText(sampleMoviesList.get(selectedIndex).getTitle())));
         onView(withId(R.id.text_view_genres)).check(matches(isDisplayed()));
@@ -53,8 +56,10 @@ public class MainActivityTest {
 
     @Test
     public void loadDetailMovieAtLastIndex(){
+        delayTwoSecond();
         int selectedIndex = sampleMoviesList.size() - 1;
         onView(withId(R.id.recyler_view_film)).perform(RecyclerViewActions.actionOnItemAtPosition(selectedIndex, click()));
+        delayTwoSecond();
         onView(withId(R.id.text_view_title)).check(matches(isDisplayed()));
         onView(withId(R.id.text_view_title)).check(matches(withText(sampleMoviesList.get(selectedIndex).getTitle())));
         onView(withId(R.id.text_view_genres)).check(matches(isDisplayed()));
@@ -69,4 +74,11 @@ public class MainActivityTest {
         onView(withId(R.id.text_view_overview)).check(matches(withText(sampleMoviesList.get(selectedIndex).getOverview())));
     }
 
+    private void delayTwoSecond() {
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 }
