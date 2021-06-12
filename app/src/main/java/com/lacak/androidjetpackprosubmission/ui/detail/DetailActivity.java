@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.lacak.androidjetpackprosubmission.data.source.local.entity.FilmEntity;
 import com.lacak.androidjetpackprosubmission.databinding.ActivityDetailBinding;
@@ -28,7 +29,9 @@ public class DetailActivity extends AppCompatActivity {
         DetailViewModel detailViewModel = new ViewModelProvider(this, viewModelFactory).get(DetailViewModel.class);
 
         FilmEntity filmEntity = getIntent().getParcelableExtra(EXTRA_FILM);
-        String filmType = getIntent().getStringExtra(EXTRA_TYPE);
+        String filmType = getIntent().getExtras().getString(EXTRA_TYPE);
+
+        Toast.makeText(this, "filmType: " + filmType + ", title: " + filmEntity.getTitle(), Toast.LENGTH_SHORT).show();
 
         if(filmEntity != null){
             activityDetailBinding.progressBar.setVisibility(View.VISIBLE);
