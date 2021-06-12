@@ -5,6 +5,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Menu;
@@ -14,6 +15,7 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.lacak.androidjetpackprosubmission.R;
 import com.lacak.androidjetpackprosubmission.databinding.ActivityMainBinding;
+import com.lacak.androidjetpackprosubmission.ui.favorite.FavoriteActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -53,7 +55,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.goToFavoriteActivity) {
-
+            Intent intent = new Intent(this, FavoriteActivity.class);
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);
