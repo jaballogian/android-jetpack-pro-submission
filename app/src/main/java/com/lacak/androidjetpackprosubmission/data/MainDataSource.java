@@ -2,8 +2,6 @@ package com.lacak.androidjetpackprosubmission.data;
 
 import androidx.lifecycle.LiveData;
 
-import com.lacak.androidjetpackprosubmission.data.FilmEntity;
-
 import java.util.List;
 
 public interface MainDataSource {
@@ -11,5 +9,7 @@ public interface MainDataSource {
 
     LiveData<List<FilmEntity>> getAllShows();
 
-    LiveData<FilmEntity> getDetailFilm(String title);
+    LiveData<FilmEntity> getDetailMovie(String title);
+
+    LiveData<FilmEntity> getDetailShow(String title);
 }
