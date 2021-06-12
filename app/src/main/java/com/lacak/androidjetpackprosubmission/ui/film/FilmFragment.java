@@ -1,5 +1,6 @@
 package com.lacak.androidjetpackprosubmission.ui.film;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,6 +15,7 @@ import android.view.ViewGroup;
 
 import com.lacak.androidjetpackprosubmission.data.FilmEntity;
 import com.lacak.androidjetpackprosubmission.databinding.FragmentFilmBinding;
+import com.lacak.androidjetpackprosubmission.ui.detail.DetailActivity;
 import com.lacak.androidjetpackprosubmission.viewmodel.ViewModelFactory;
 
 import java.util.List;
@@ -54,19 +56,19 @@ public class FilmFragment extends Fragment {
             if(index == 1){
                 filmViewModel.getMoviesListData().observe(this, movies -> {
                     fragmentFilmBinding.progressBar.setVisibility(View.GONE);
-                    addDataToRecylerView(movies);
+                    addDataToRecylerView(movies, DetailActivity.TYPE_MOVIE);
                 });
             }
             else if(index == 2){
                 filmViewModel.getShowsListData().observe(this, shows -> {
                     fragmentFilmBinding.progressBar.setVisibility(View.GONE);
-                    addDataToRecylerView(shows);
+                    addDataToRecylerView(shows, DetailActivity.TYPE_SHOW);
                 });
             }
         }
     }
 
-    private void addDataToRecylerView(List<FilmEntity> inputList){
+    private void addDataToRecylerView(List<FilmEntity> inputList, String inputType){
         FilmAdapter filmAdapter = new FilmAdapter(getContext());
         filmAdapter.setListFilms(inputList);
         filmAdapter.notifyDataSetChanged();
@@ -74,5 +76,15 @@ public class FilmFragment extends Fragment {
         fragmentFilmBinding.recylerViewFilm.setLayoutManager(new LinearLayoutManager(getContext()));
         fragmentFilmBinding.recylerViewFilm.setHasFixedSize(true);
         fragmentFilmBinding.recylerViewFilm.setAdapter(filmAdapter);
+
+        filmAdapter.setOnItemClickCallback(new FilmAdapter.OnItemClickCallback() {
+            @Override
+            public void onItemClicked(FilmEntity filmEntity) {
+                Intent moveToDetailActivity = new Intent(getContext(), DetailActivity.class);
+                moveToDetailActivity.putExtra(DetailActivity.EXTRA_FILM, filmEntity);
+                moveToDetailActivity.putExtra(DetailActivity.EXTRA_TYPE, inputType);
+                getContext().startActivity(moveToDetailActivity);
+            }
+        });
     }
 }
