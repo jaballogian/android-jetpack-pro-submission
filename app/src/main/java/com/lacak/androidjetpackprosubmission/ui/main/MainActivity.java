@@ -1,9 +1,11 @@
 package com.lacak.androidjetpackprosubmission.ui.main;
 
 import androidx.annotation.StringRes;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import com.google.android.material.tabs.TabLayout;
@@ -29,6 +31,10 @@ public class MainActivity extends AppCompatActivity {
 
         ViewPager2 viewPager2 = activityMainBinding.viewPager2;
         TabLayout tabLayout = activityMainBinding.tabs;
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle(getString(R.string.home));
+        actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.light_blue_a400)));
 
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this);
 
