@@ -2,7 +2,6 @@ package com.lacak.androidjetpackprosubmission.ui.film;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -11,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.lacak.androidjetpackprosubmission.data.FilmEntity;
 import com.lacak.androidjetpackprosubmission.databinding.ItemFilmBinding;
-import com.lacak.androidjetpackprosubmission.ui.detail.DetailActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +17,7 @@ import java.util.List;
 public class FilmAdapter extends RecyclerView.Adapter<FilmAdapter.FilmViewHolder> {
     private final List<FilmEntity> listFilms = new ArrayList<>();
     private static Context context;
+    private static OnItemClickCallback onItemClickCallback;
 
     public FilmAdapter(Context context){
         this.context = context;
@@ -28,6 +27,10 @@ public class FilmAdapter extends RecyclerView.Adapter<FilmAdapter.FilmViewHolder
         if(listFilms == null) return;
         this.listFilms.clear();
         this.listFilms.addAll(listFilms);
+    }
+
+    public void setOnItemClickCallback(OnItemClickCallback onItemClickCallback) {
+        this.onItemClickCallback = onItemClickCallback;
     }
 
     @NonNull
@@ -66,10 +69,12 @@ public class FilmAdapter extends RecyclerView.Adapter<FilmAdapter.FilmViewHolder
             itemFilmBinding.imageView.setImageDrawable(context.getResources().getDrawable(imageResource));
 
             itemView.setOnClickListener(v -> {
-                Intent moveToDetailActivity = new Intent(itemView.getContext(), DetailActivity.class);
-                moveToDetailActivity.putExtra(DetailActivity.EXTRA_FILM, filmEntity);
-                itemView.getContext().startActivity(moveToDetailActivity);
+                onItemClickCallback.onItemClicked(filmEntity);
             });
         }
+    }
+
+    public interface OnItemClickCallback {
+        void onItemClicked(FilmEntity filmEntity);
     }
 }
