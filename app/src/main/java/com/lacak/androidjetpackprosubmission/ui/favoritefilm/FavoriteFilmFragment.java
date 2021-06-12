@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.lacak.androidjetpackprosubmission.R;
 import com.lacak.androidjetpackprosubmission.databinding.FragmentFavoriteFilmBinding;
 
 public class FavoriteFilmFragment extends Fragment {
@@ -38,6 +39,13 @@ public class FavoriteFilmFragment extends Fragment {
         int index = 1;
         if (getArguments() != null) {
             index = getArguments().getInt(ARG_FAV_SECTION_NUMBER);
+
+            if(index == 1){
+                fragmentFavoriteFilmBinding.textView.setText(getString(R.string.movies));
+            }
+            else if(index == 2){
+                fragmentFavoriteFilmBinding.textView.setText(getString(R.string.tv_shows));
+            }
         }
     }
 }
