@@ -18,6 +18,7 @@ public class FilmAdapter extends RecyclerView.Adapter<FilmAdapter.FilmViewHolder
     private final List<FilmEntity> listFilms = new ArrayList<>();
     private static Context context;
     private static OnItemClickCallback onItemClickCallback;
+    private String filmType = "";
 
     public FilmAdapter(Context context){
         this.context = context;
@@ -27,6 +28,14 @@ public class FilmAdapter extends RecyclerView.Adapter<FilmAdapter.FilmViewHolder
         if(listFilms == null) return;
         this.listFilms.clear();
         this.listFilms.addAll(listFilms);
+    }
+
+    public String getFilmType() {
+        return filmType;
+    }
+
+    public void setFilmType(String filmType) {
+        this.filmType = filmType;
     }
 
     public void setOnItemClickCallback(OnItemClickCallback onItemClickCallback) {
@@ -43,7 +52,7 @@ public class FilmAdapter extends RecyclerView.Adapter<FilmAdapter.FilmViewHolder
     @Override
     public void onBindViewHolder(@NonNull FilmViewHolder holder, int position) {
         FilmEntity filmEntity = listFilms.get(position);
-        holder.bind(filmEntity);
+        holder.bind(filmEntity, filmType);
     }
 
     @Override
@@ -60,7 +69,7 @@ public class FilmAdapter extends RecyclerView.Adapter<FilmAdapter.FilmViewHolder
         }
 
         @SuppressLint("UseCompatLoadingForDrawables")
-        void bind(FilmEntity filmEntity){
+        void bind(FilmEntity filmEntity, String filmType){
             itemFilmBinding.textViewTitle.setText(filmEntity.getTitle());
             itemFilmBinding.textViewYear.setText(filmEntity.getYear());
             itemFilmBinding.textViewRating.setText(filmEntity.getRating());
@@ -69,12 +78,12 @@ public class FilmAdapter extends RecyclerView.Adapter<FilmAdapter.FilmViewHolder
             itemFilmBinding.imageView.setImageDrawable(context.getResources().getDrawable(imageResource));
 
             itemView.setOnClickListener(v -> {
-                onItemClickCallback.onItemClicked(filmEntity);
+                onItemClickCallback.onItemClicked(filmEntity, filmType);
             });
         }
     }
 
     public interface OnItemClickCallback {
-        void onItemClicked(FilmEntity filmEntity);
+        void onItemClicked(FilmEntity filmEntity, String filmType);
     }
 }
