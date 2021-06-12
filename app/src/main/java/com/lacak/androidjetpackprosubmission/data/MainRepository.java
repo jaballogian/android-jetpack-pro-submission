@@ -76,8 +76,8 @@ public class MainRepository implements MainDataSource{
     }
 
     @Override
-    public LiveData<FilmEntity> getDetailFilm(final String title) {
-        MutableLiveData<FilmEntity> detailFilmResult = new MutableLiveData<>();
+    public LiveData<FilmEntity> getDetailMovie(final String title) {
+        MutableLiveData<FilmEntity> detailMovieResult = new MutableLiveData<>();
 
         remoteDataSource.getAllMovies(movieResponses -> {
             FilmEntity movie = null;
@@ -96,31 +96,36 @@ public class MainRepository implements MainDataSource{
                 }
             }
 
-            if(movie == null){
-                remoteDataSource.getAllShows(showResponses -> {
-                    FilmEntity show = null;
-                    for (FilmResponse response : showResponses) {
-                        if (response.getTitle().equals(title)) {
-                            show = new FilmEntity(
-                                response.getTitle(),
-                                response.getYear(),
-                                response.getGenres(),
-                                response.getDuration(),
-                                response.getRating(),
-                                response.getOverview(),
-                                response.getUrl(),
-                                response.getImagePath()
-                            );
-                        }
-                    }
-                    detailFilmResult.postValue(show);
-                });
-            }
-            else {
-                detailFilmResult.postValue(movie);
-            }
+            detailMovieResult.postValue(movie);
         });
 
-        return detailFilmResult;
+        return detailMovieResult;
+    }
+
+    @Override
+    public LiveData<FilmEntity> getDetailShow(final String title) {
+        MutableLiveData<FilmEntity> detailShowResult = new MutableLiveData<>();
+
+        remoteDataSource.getAllShows(showResponses -> {
+            FilmEntity show = null;
+            for (FilmResponse response : showResponses) {
+                if (response.getTitle().equals(title)) {
+                    show = new FilmEntity(
+                            response.getTitle(),
+                            response.getYear(),
+                            response.getGenres(),
+                            response.getDuration(),
+                            response.getRating(),
+                            response.getOverview(),
+                            response.getUrl(),
+                            response.getImagePath()
+                    );
+                }
+            }
+
+            detailShowResult.postValue(show);
+        });
+
+        return detailShowResult;
     }
 }
