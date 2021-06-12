@@ -14,11 +14,19 @@ public class DetailViewModel extends ViewModel {
         this.mainRepository = mainRepository;
     }
 
-    public void setSelectedFilm(String title){
+    public void setSelectedMovie(String title){
         this.title = title;
     }
 
-    public LiveData<FilmEntity> getSelectedFilm(){
-        return mainRepository.getDetailFilm(title);
+    public void setSelectedShow(String title){
+        this.title = title;
+    }
+
+    public LiveData<FilmEntity> getSelectedMovie(){
+        return mainRepository.getDetailMovie(title);
+    }
+
+    public LiveData<FilmEntity> getSelectedShow(){
+        return mainRepository.getDetailShow(title);
     }
 }
