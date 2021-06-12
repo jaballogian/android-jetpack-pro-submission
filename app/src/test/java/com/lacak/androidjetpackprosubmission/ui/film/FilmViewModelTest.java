@@ -4,7 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 
-import com.lacak.androidjetpackprosubmission.data.FilmEntity;
+import com.lacak.androidjetpackprosubmission.data.source.local.entity.FilmEntity;
 import com.lacak.androidjetpackprosubmission.data.MainRepository;
 import com.lacak.androidjetpackprosubmission.utils.MoviesListDataGenerator;
 import com.lacak.androidjetpackprosubmission.utils.ShowsListDataGenerator;

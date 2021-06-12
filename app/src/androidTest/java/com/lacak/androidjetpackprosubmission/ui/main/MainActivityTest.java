@@ -4,7 +4,7 @@ import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 
 import com.lacak.androidjetpackprosubmission.R;
-import com.lacak.androidjetpackprosubmission.data.FilmEntity;
+import com.lacak.androidjetpackprosubmission.data.source.local.entity.FilmEntity;
 import com.lacak.androidjetpackprosubmission.utils.MoviesListDataGenerator;
 
 import org.junit.Rule;

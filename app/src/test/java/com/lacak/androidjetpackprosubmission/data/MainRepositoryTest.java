@@ -2,6 +2,7 @@ package com.lacak.androidjetpackprosubmission.data;
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
 
+import com.lacak.androidjetpackprosubmission.data.source.local.entity.FilmEntity;
 import com.lacak.androidjetpackprosubmission.data.source.remote.RemoteDataSource;
 import com.lacak.androidjetpackprosubmission.data.source.remote.response.FilmResponse;
 import com.lacak.androidjetpackprosubmission.utils.LiveDataTestUtil;

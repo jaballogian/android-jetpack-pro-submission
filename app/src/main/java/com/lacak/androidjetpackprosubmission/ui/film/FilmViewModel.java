@@ -3,7 +3,7 @@ package com.lacak.androidjetpackprosubmission.ui.film;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.lacak.androidjetpackprosubmission.data.FilmEntity;
+import com.lacak.androidjetpackprosubmission.data.source.local.entity.FilmEntity;
 import com.lacak.androidjetpackprosubmission.data.MainRepository;
 
 import java.util.List;

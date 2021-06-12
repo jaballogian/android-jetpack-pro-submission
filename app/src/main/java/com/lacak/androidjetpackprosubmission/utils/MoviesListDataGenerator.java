@@ -1,6 +1,6 @@
 package com.lacak.androidjetpackprosubmission.utils;
 
-import com.lacak.androidjetpackprosubmission.data.FilmEntity;
+import com.lacak.androidjetpackprosubmission.data.source.local.entity.FilmEntity;
 import com.lacak.androidjetpackprosubmission.data.source.remote.response.FilmResponse;
 
 import java.util.ArrayList;

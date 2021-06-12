@@ -2,6 +2,8 @@ package com.lacak.androidjetpackprosubmission.data;
 
 import androidx.lifecycle.LiveData;
 
+import com.lacak.androidjetpackprosubmission.data.source.local.entity.FilmEntity;
+
 import java.util.List;
 
 public interface MainDataSource {

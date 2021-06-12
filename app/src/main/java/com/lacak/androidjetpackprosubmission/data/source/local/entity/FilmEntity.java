@@ -1,4 +1,4 @@
-package com.lacak.androidjetpackprosubmission.data;
+package com.lacak.androidjetpackprosubmission.data.source.local.entity;
 
 import android.os.Parcel;
 import android.os.Parcelable;

@@ -13,7 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.lacak.androidjetpackprosubmission.data.FilmEntity;
+import com.lacak.androidjetpackprosubmission.data.source.local.entity.FilmEntity;
 import com.lacak.androidjetpackprosubmission.databinding.FragmentFilmBinding;
 import com.lacak.androidjetpackprosubmission.ui.detail.DetailActivity;
 import com.lacak.androidjetpackprosubmission.viewmodel.ViewModelFactory;
