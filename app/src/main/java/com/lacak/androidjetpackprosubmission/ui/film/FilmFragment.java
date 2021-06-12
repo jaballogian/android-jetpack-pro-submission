@@ -71,6 +71,7 @@ public class FilmFragment extends Fragment {
     private void addDataToRecylerView(List<FilmEntity> inputList, String inputType){
         FilmAdapter filmAdapter = new FilmAdapter(getContext());
         filmAdapter.setListFilms(inputList);
+        filmAdapter.setFilmType(inputType);
         filmAdapter.notifyDataSetChanged();
 
         fragmentFilmBinding.recylerViewFilm.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -79,10 +80,10 @@ public class FilmFragment extends Fragment {
 
         filmAdapter.setOnItemClickCallback(new FilmAdapter.OnItemClickCallback() {
             @Override
-            public void onItemClicked(FilmEntity filmEntity) {
+            public void onItemClicked(FilmEntity filmEntity, String filmType) {
                 Intent moveToDetailActivity = new Intent(getContext(), DetailActivity.class);
                 moveToDetailActivity.putExtra(DetailActivity.EXTRA_FILM, filmEntity);
-                moveToDetailActivity.putExtra(DetailActivity.EXTRA_TYPE, inputType);
+                moveToDetailActivity.putExtra(DetailActivity.EXTRA_TYPE, filmType);
                 getContext().startActivity(moveToDetailActivity);
             }
         });
