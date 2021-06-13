@@ -15,11 +15,21 @@ import java.util.concurrent.Executors;
 public class FavoriteFilmRepository {
     private FavoriteFilmDao favoriteFilmDao;
     private ExecutorService executorService;
+    private volatile static FavoriteFilmRepository INSTANCE = null;
 
     public FavoriteFilmRepository(Application application) {
         executorService = Executors.newSingleThreadExecutor();
         FavoriteFilmRoomDatabase favoriteFilmRoomDatabase = FavoriteFilmRoomDatabase.getDatabase(application);
         favoriteFilmDao = favoriteFilmRoomDatabase.favoriteFilmDao();
+    }
+
+    public static FavoriteFilmRepository getInstance(Application application){
+        if(INSTANCE == null){
+            synchronized (FavoriteFilmRepository.class){
+                INSTANCE = new FavoriteFilmRepository(application);
+            }
+        }
+        return INSTANCE;
     }
 
     public LiveData<List<FavoriteFilmEntity>> getAllFavoriteMovies() {
