@@ -4,9 +4,12 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class FilmEntity implements Parcelable {
-    private String title, year, genres, duration, rating, overview, url, imagePath;
+    private int id;
+    private String title, year, genres, duration, rating, overview, url, imagePath, type;
 
-    public FilmEntity(String title, String year, String genres, String duration, String rating, String overview, String url, String imagePath){
+    public FilmEntity(int id, String title, String year, String genres, String duration,
+                      String rating, String overview, String url, String imagePath, String type){
+        this.id = id;
         this.title = title;
         this.year = year;
         this.genres = genres;
@@ -15,6 +18,23 @@ public class FilmEntity implements Parcelable {
         this.overview = overview;
         this.url = url;
         this.imagePath = imagePath;
+        this.type = type;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getTitle() {
@@ -82,6 +102,7 @@ public class FilmEntity implements Parcelable {
     }
 
     protected FilmEntity(Parcel in){
+        id = in.readInt();
         title = in.readString();
         year = in.readString();
         genres = in.readString();
@@ -90,6 +111,7 @@ public class FilmEntity implements Parcelable {
         overview = in.readString();
         url = in.readString();
         imagePath = in.readString();
+        type = in.readString();
     }
 
     @Override
@@ -99,6 +121,7 @@ public class FilmEntity implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
         dest.writeString(title);
         dest.writeString(year);
         dest.writeString(genres);
@@ -107,6 +130,7 @@ public class FilmEntity implements Parcelable {
         dest.writeString(overview);
         dest.writeString(url);
         dest.writeString(imagePath);
+        dest.writeString(type);
     }
 
     public static final Creator<FilmEntity> CREATOR = new Creator<FilmEntity>() {
