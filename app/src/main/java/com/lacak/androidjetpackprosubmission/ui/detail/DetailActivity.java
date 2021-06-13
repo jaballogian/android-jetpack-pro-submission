@@ -13,9 +13,8 @@ import com.lacak.androidjetpackprosubmission.viewmodel.ViewModelFactory;
 public class DetailActivity extends AppCompatActivity {
 
     public static final String EXTRA_FILM = "extra_film";
-    public static final String EXTRA_TYPE = "extra_type";
     public static final String TYPE_MOVIE = "movie";
-    public static final String TYPE_SHOW = "tv_show";
+    public static final String TYPE_SHOW = "show";
     private ActivityDetailBinding activityDetailBinding;
 
     @Override
@@ -28,18 +27,17 @@ public class DetailActivity extends AppCompatActivity {
         DetailViewModel detailViewModel = new ViewModelProvider(this, viewModelFactory).get(DetailViewModel.class);
 
         FilmEntity filmEntity = getIntent().getParcelableExtra(EXTRA_FILM);
-        String filmType = getIntent().getExtras().getString(EXTRA_TYPE);
 
         if(filmEntity != null){
             activityDetailBinding.progressBar.setVisibility(View.VISIBLE);
 
-            if(filmType.equals(TYPE_MOVIE)){
+            if(filmEntity.getType().equals(TYPE_MOVIE)){
                 detailViewModel.setSelectedMovie(filmEntity.getTitle());
                 detailViewModel.getSelectedMovie().observe(this, filmEntityData -> {
                     populateData(filmEntityData);
                 });
             }
-            else if(filmType.equals(TYPE_SHOW)){
+            else if(filmEntity.getType().equals(TYPE_SHOW)){
                 detailViewModel.setSelectedShow(filmEntity.getTitle());
                 detailViewModel.getSelectedShow().observe(this, filmEntityData -> {
                     populateData(filmEntityData);
