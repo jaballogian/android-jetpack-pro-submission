@@ -35,6 +35,7 @@ public class MainRepository implements MainDataSource{
             ArrayList<FilmEntity> moviesList = new ArrayList<>();
             for (FilmResponse response : movieResponses) {
                 FilmEntity movie = new FilmEntity(
+                        response.getId(),
                         response.getTitle(),
                         response.getYear(),
                         response.getGenres(),
@@ -42,7 +43,8 @@ public class MainRepository implements MainDataSource{
                         response.getRating(),
                         response.getOverview(),
                         response.getUrl(),
-                        response.getImagePath()
+                        response.getImagePath(),
+                        response.getType()
                 );
                 moviesList.add(movie);
             }
@@ -59,6 +61,7 @@ public class MainRepository implements MainDataSource{
             ArrayList<FilmEntity> showsList = new ArrayList<>();
             for (FilmResponse response : showResponses) {
                 FilmEntity show = new FilmEntity(
+                        response.getId(),
                         response.getTitle(),
                         response.getYear(),
                         response.getGenres(),
@@ -66,7 +69,8 @@ public class MainRepository implements MainDataSource{
                         response.getRating(),
                         response.getOverview(),
                         response.getUrl(),
-                        response.getImagePath()
+                        response.getImagePath(),
+                        response.getType()
                 );
                 showsList.add(show);
             }
@@ -85,6 +89,7 @@ public class MainRepository implements MainDataSource{
             for (FilmResponse response : movieResponses) {
                 if (response.getTitle().equals(title)) {
                     movie = new FilmEntity(
+                        response.getId(),
                         response.getTitle(),
                         response.getYear(),
                         response.getGenres(),
@@ -92,7 +97,8 @@ public class MainRepository implements MainDataSource{
                         response.getRating(),
                         response.getOverview(),
                         response.getUrl(),
-                        response.getImagePath()
+                        response.getImagePath(),
+                        response.getType()
                     );
                 }
             }
@@ -112,6 +118,7 @@ public class MainRepository implements MainDataSource{
             for (FilmResponse response : showResponses) {
                 if (response.getTitle().equals(title)) {
                     show = new FilmEntity(
+                            response.getId(),
                             response.getTitle(),
                             response.getYear(),
                             response.getGenres(),
@@ -119,7 +126,8 @@ public class MainRepository implements MainDataSource{
                             response.getRating(),
                             response.getOverview(),
                             response.getUrl(),
-                            response.getImagePath()
+                            response.getImagePath(),
+                            response.getType()
                     );
                 }
             }
