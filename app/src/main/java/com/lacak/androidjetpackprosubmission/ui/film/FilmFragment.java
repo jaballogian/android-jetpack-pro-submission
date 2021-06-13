@@ -47,7 +47,7 @@ public class FilmFragment extends Fragment {
         if (getArguments() != null) {
             index = getArguments().getInt(ARG_SECTION_NUMBER);
 
-            ViewModelFactory viewModelFactory = ViewModelFactory.getInstance(getActivity());
+            ViewModelFactory viewModelFactory = ViewModelFactory.getInstance(getActivity(), getActivity().getApplication());
             FilmViewModel filmViewModel = new ViewModelProvider(this, viewModelFactory).get(FilmViewModel.class);
 
             fragmentFilmBinding.progressBar.setVisibility(View.VISIBLE);
