@@ -56,22 +56,21 @@ public class FilmFragment extends Fragment {
             if(index == 1){
                 filmViewModel.getMoviesListData().observe(this, movies -> {
                     fragmentFilmBinding.progressBar.setVisibility(View.GONE);
-                    addDataToRecylerView(movies, DetailActivity.TYPE_MOVIE);
+                    addDataToRecylerView(movies);
                 });
             }
             else if(index == 2){
                 filmViewModel.getShowsListData().observe(this, shows -> {
                     fragmentFilmBinding.progressBar.setVisibility(View.GONE);
-                    addDataToRecylerView(shows, DetailActivity.TYPE_SHOW);
+                    addDataToRecylerView(shows);
                 });
             }
         }
     }
 
-    private void addDataToRecylerView(List<FilmEntity> inputList, String inputType){
+    private void addDataToRecylerView(List<FilmEntity> inputList){
         FilmAdapter filmAdapter = new FilmAdapter(getContext());
         filmAdapter.setListFilms(inputList);
-        filmAdapter.setFilmType(inputType);
         filmAdapter.notifyDataSetChanged();
 
         fragmentFilmBinding.recylerViewFilm.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -80,10 +79,9 @@ public class FilmFragment extends Fragment {
 
         filmAdapter.setOnItemClickCallback(new FilmAdapter.OnItemClickCallback() {
             @Override
-            public void onItemClicked(FilmEntity filmEntity, String filmType) {
+            public void onItemClicked(FilmEntity filmEntity) {
                 Intent moveToDetailActivity = new Intent(getContext(), DetailActivity.class);
                 moveToDetailActivity.putExtra(DetailActivity.EXTRA_FILM, filmEntity);
-                moveToDetailActivity.putExtra(DetailActivity.EXTRA_TYPE, filmType);
                 getContext().startActivity(moveToDetailActivity);
             }
         });
