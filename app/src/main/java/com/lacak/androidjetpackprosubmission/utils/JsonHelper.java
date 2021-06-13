@@ -44,6 +44,7 @@ public class JsonHelper {
                 for (int i = 0; i < listArray.length(); i++) {
                     JSONObject movie = listArray.getJSONObject(i);
 
+                    int id = movie.getInt("id");
                     String title = movie.getString("title");
                     String year = movie.getString("year");
                     String genres = movie.getString("genres");
@@ -52,8 +53,9 @@ public class JsonHelper {
                     String overview = movie.getString("overview");
                     String url = movie.getString("url");
                     String imagePath = movie.getString("imagePath");
+                    String type = movie.getString("type");
 
-                    FilmResponse FilmResponse = new FilmResponse(title, year, genres, duration, rating, overview, url, imagePath);
+                    FilmResponse FilmResponse = new FilmResponse(id, title, year, genres, duration, rating, overview, url, imagePath, type);
                     list.add(FilmResponse);
                 }
             }
@@ -73,6 +75,7 @@ public class JsonHelper {
                 for (int i = 0; i < listArray.length(); i++) {
                     JSONObject show = listArray.getJSONObject(i);
 
+                    int id = show.getInt("id");
                     String title = show.getString("title");
                     String year = show.getString("year");
                     String genres = show.getString("genres");
@@ -81,8 +84,9 @@ public class JsonHelper {
                     String overview = show.getString("overview");
                     String url = show.getString("url");
                     String imagePath = show.getString("imagePath");
+                    String type = show.getString("type");
 
-                    FilmResponse FilmResponse = new FilmResponse(title, year, genres, duration, rating, overview, url, imagePath);
+                    FilmResponse FilmResponse = new FilmResponse(id, title, year, genres, duration, rating, overview, url, imagePath, type);
                     list.add(FilmResponse);
                 }
             }
