@@ -24,7 +24,7 @@ public class DetailActivity extends AppCompatActivity {
         activityDetailBinding = ActivityDetailBinding.inflate(getLayoutInflater());
         setContentView(activityDetailBinding.getRoot());
 
-        ViewModelFactory viewModelFactory= ViewModelFactory.getInstance(this);
+        ViewModelFactory viewModelFactory= ViewModelFactory.getInstance(this, getApplication());
         DetailViewModel detailViewModel = new ViewModelProvider(this, viewModelFactory).get(DetailViewModel.class);
 
         FilmEntity filmEntity = getIntent().getParcelableExtra(EXTRA_FILM);
