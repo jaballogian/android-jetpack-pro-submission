@@ -3,15 +3,19 @@ package com.lacak.androidjetpackprosubmission.ui.detail;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.lacak.androidjetpackprosubmission.data.FavoriteFilmRepository;
+import com.lacak.androidjetpackprosubmission.data.source.local.entity.FavoriteFilmEntity;
 import com.lacak.androidjetpackprosubmission.data.source.local.entity.FilmEntity;
 import com.lacak.androidjetpackprosubmission.data.MainRepository;
 
 public class DetailViewModel extends ViewModel {
     private String title;
     private MainRepository mainRepository;
+    private FavoriteFilmRepository favoriteFilmRepository;
 
-    public DetailViewModel(MainRepository mainRepository){
+    public DetailViewModel(MainRepository mainRepository, FavoriteFilmRepository favoriteFilmRepository){
         this.mainRepository = mainRepository;
+        this.favoriteFilmRepository = favoriteFilmRepository;
     }
 
     public void setSelectedMovie(String title){
@@ -28,5 +32,9 @@ public class DetailViewModel extends ViewModel {
 
     public LiveData<FilmEntity> getSelectedShow(){
         return mainRepository.getDetailShow(title);
+    }
+
+    public void insertFavoriteFilm(FavoriteFilmEntity favoriteFilmEntity){
+        favoriteFilmRepository.insertFilm(favoriteFilmEntity);
     }
 }
