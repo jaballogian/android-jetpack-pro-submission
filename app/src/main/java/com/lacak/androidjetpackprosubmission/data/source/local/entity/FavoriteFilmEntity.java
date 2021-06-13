@@ -7,7 +7,7 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "filmTable")
+@Entity(tableName = "favoriteFilmTable")
 public class FavoriteFilmEntity implements Parcelable {
 
     @PrimaryKey(autoGenerate = true)

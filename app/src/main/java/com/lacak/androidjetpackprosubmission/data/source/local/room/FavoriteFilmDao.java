@@ -20,9 +20,9 @@ public interface FavoriteFilmDao {
     @Delete()
     void deleteFilm(FavoriteFilmEntity favoriteFilmEntity);
 
-    @Query("select * from filmTable where type = 'movie'")
+    @Query("select * from favoriteFilmTable where type = 'movie'")
     LiveData<List<FavoriteFilmEntity>> getAllFavoriteMovies();
 
-    @Query("select * from filmTable where type = 'show'")
+    @Query("select * from favoriteFilmTable where type = 'show'")
     LiveData<List<FavoriteFilmEntity>> getAllFavoriteShows();
 }
