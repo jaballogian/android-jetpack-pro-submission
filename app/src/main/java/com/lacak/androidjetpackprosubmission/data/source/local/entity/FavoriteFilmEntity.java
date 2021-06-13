@@ -11,6 +11,9 @@ import androidx.room.PrimaryKey;
 public class FavoriteFilmEntity implements Parcelable {
 
     @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id")
+    private int id;
+
     @ColumnInfo(name = "title")
     private String title;
 
@@ -38,16 +41,19 @@ public class FavoriteFilmEntity implements Parcelable {
     @ColumnInfo(name = "type")
     private String type;
 
-    public FavoriteFilmEntity(String title,
-                              String year,
-                              String genres,
-                              String duration,
-                              String rating,
-                              String overview,
-                              String url,
-                              String imagePath,
-                              String type
+    public FavoriteFilmEntity(
+            int id,
+            String title,
+            String year,
+            String genres,
+            String duration,
+            String rating,
+            String overview,
+            String url,
+            String imagePath,
+            String type
     ){
+        this.id = id;
         this.title = title;
         this.year = year;
         this.genres = genres;
@@ -60,6 +66,7 @@ public class FavoriteFilmEntity implements Parcelable {
     }
 
     protected FavoriteFilmEntity(Parcel in) {
+        id = in.readInt();
         title = in.readString();
         year = in.readString();
         genres = in.readString();
@@ -69,6 +76,14 @@ public class FavoriteFilmEntity implements Parcelable {
         url = in.readString();
         imagePath = in.readString();
         type = in.readString();
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -150,6 +165,7 @@ public class FavoriteFilmEntity implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
         dest.writeString(title);
         dest.writeString(year);
         dest.writeString(genres);
