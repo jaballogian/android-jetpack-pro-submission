@@ -4,9 +4,12 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class FilmResponse implements Parcelable {
-    private String title, year, genres, duration, rating, overview, url, imagePath;
+    private int id;
+    private String title, year, genres, duration, rating, overview, url, imagePath, type;
 
-    public FilmResponse(String title, String year, String genres, String duration, String rating, String overview, String url, String imagePath) {
+    public FilmResponse(int id, String title, String year, String genres, String duration,
+                        String rating, String overview, String url, String imagePath, String type) {
+        this.id = id;
         this.title = title;
         this.year = year;
         this.genres = genres;
@@ -15,6 +18,23 @@ public class FilmResponse implements Parcelable {
         this.overview = overview;
         this.url = url;
         this.imagePath = imagePath;
+        this.type = type;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getTitle() {
@@ -88,6 +108,7 @@ public class FilmResponse implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
         dest.writeString(title);
         dest.writeString(year);
         dest.writeString(genres);
@@ -96,9 +117,11 @@ public class FilmResponse implements Parcelable {
         dest.writeString(overview);
         dest.writeString(url);
         dest.writeString(imagePath);
+        dest.writeString(type);
     }
 
     protected FilmResponse(Parcel in) {
+        id = in.readInt();
         title = in.readString();
         year = in.readString();
         genres = in.readString();
@@ -107,6 +130,7 @@ public class FilmResponse implements Parcelable {
         overview = in.readString();
         url = in.readString();
         imagePath = in.readString();
+        type = in.readString();
     }
 
     public static final Creator<FilmResponse> CREATOR = new Creator<FilmResponse>() {
