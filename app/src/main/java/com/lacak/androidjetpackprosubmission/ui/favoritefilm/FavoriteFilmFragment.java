@@ -5,13 +5,19 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.lacak.androidjetpackprosubmission.R;
+import com.lacak.androidjetpackprosubmission.data.source.local.entity.FilmEntity;
 import com.lacak.androidjetpackprosubmission.databinding.FragmentFavoriteFilmBinding;
+import com.lacak.androidjetpackprosubmission.viewmodel.ViewModelFactory;
+
+import java.util.List;
 
 public class FavoriteFilmFragment extends Fragment {
 
@@ -40,12 +46,36 @@ public class FavoriteFilmFragment extends Fragment {
         if (getArguments() != null) {
             index = getArguments().getInt(ARG_FAV_SECTION_NUMBER);
 
+            ViewModelFactory viewModelFactory = ViewModelFactory.getInstance(getActivity(), getActivity().getApplication());
+            FavoriteFilmViewModel favoriteFilmViewModel = new ViewModelProvider(this, viewModelFactory).get(FavoriteFilmViewModel.class);
+
+            fragmentFavoriteFilmBinding.progressBar.setVisibility(View.VISIBLE);
+
+            // ADD DATA TO RECYLER VIEW BASED ON SELECTED TAB
             if(index == 1){
-                fragmentFavoriteFilmBinding.textView.setText(getString(R.string.movies));
+                favoriteFilmViewModel.getAllFavoriteMovies().observe(this, favoriteMovies -> {
+                    fragmentFavoriteFilmBinding.progressBar.setVisibility(View.GONE);
+                    addDataToRecylerView(favoriteMovies);
+                });
             }
             else if(index == 2){
-                fragmentFavoriteFilmBinding.textView.setText(getString(R.string.tv_shows));
+                favoriteFilmViewModel.getAllFavoriteShows().observe(this, favoriteShows -> {
+                    fragmentFavoriteFilmBinding.progressBar.setVisibility(View.GONE);
+                    addDataToRecylerView(favoriteShows);
+                });
             }
         }
+    }
+
+    private void addDataToRecylerView(List<FilmEntity> inputList) {
+        FavoriteFilmAdapter favoriteFilmAdapter = new FavoriteFilmAdapter(getActivity());
+        favoriteFilmAdapter.setFavoriteFilmList(inputList);
+        favoriteFilmAdapter.notifyDataSetChanged();
+
+        fragmentFavoriteFilmBinding.recylerViewFavoriteFilm.setLayoutManager(new LinearLayoutManager(getContext()));
+        fragmentFavoriteFilmBinding.recylerViewFavoriteFilm.setHasFixedSize(true);
+        fragmentFavoriteFilmBinding.recylerViewFavoriteFilm.setAdapter(favoriteFilmAdapter);
+
+        // TODO: ADD ON ITEM CLICK LISTENERE HERE
     }
 }
