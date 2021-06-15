@@ -85,7 +85,7 @@ public class FilmFragment extends Fragment {
             public void onItemClicked(FilmEntity filmEntity) {
                 Intent moveToDetailActivity = new Intent(getContext(), DetailActivity.class);
                 moveToDetailActivity.putExtra(DetailActivity.EXTRA_FILM, filmEntity);
-                getActivity().startActivityForResult(moveToDetailActivity, DetailActivity.REQUEST_ADD);
+                startActivityForResult(moveToDetailActivity, DetailActivity.REQUEST_ADD);
             }
         });
     }
