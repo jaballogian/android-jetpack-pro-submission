@@ -3,9 +3,43 @@ package com.lacak.androidjetpackprosubmission.data.source.local.entity;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity(tableName = "favoriteFilmTable")
 public class FilmEntity implements Parcelable {
+
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id")
     private int id;
-    private String title, year, genres, duration, rating, overview, url, imagePath, type;
+
+    @ColumnInfo(name = "title")
+    private String title;
+
+    @ColumnInfo(name = "year")
+    private String year;
+
+    @ColumnInfo(name = "genres")
+    private String genres;
+
+    @ColumnInfo(name = "duration")
+    private String duration;
+
+    @ColumnInfo(name = "rating")
+    private String rating;
+
+    @ColumnInfo(name = "overview")
+    private String overview;
+
+    @ColumnInfo(name = "url")
+    private String url;
+
+    @ColumnInfo(name = "imagePath")
+    private String imagePath;
+
+    @ColumnInfo(name = "type")
+    private String type;
 
     public FilmEntity(int id, String title, String year, String genres, String duration,
                       String rating, String overview, String url, String imagePath, String type){
