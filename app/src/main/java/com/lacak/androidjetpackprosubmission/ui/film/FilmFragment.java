@@ -9,10 +9,13 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.lacak.androidjetpackprosubmission.R;
 import com.lacak.androidjetpackprosubmission.data.source.local.entity.FilmEntity;
 import com.lacak.androidjetpackprosubmission.databinding.FragmentFilmBinding;
 import com.lacak.androidjetpackprosubmission.ui.detail.DetailActivity;
@@ -82,8 +85,21 @@ public class FilmFragment extends Fragment {
             public void onItemClicked(FilmEntity filmEntity) {
                 Intent moveToDetailActivity = new Intent(getContext(), DetailActivity.class);
                 moveToDetailActivity.putExtra(DetailActivity.EXTRA_FILM, filmEntity);
-                getContext().startActivity(moveToDetailActivity);
+                getActivity().startActivityForResult(moveToDetailActivity, DetailActivity.REQUEST_ADD);
             }
         });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.d("FilmFragment", "requestCode: " + requestCode + ", resultCode: " + resultCode + ", data: " + data);
+        if(data != null) {
+            if(requestCode == DetailActivity.REQUEST_ADD) {
+                if(resultCode == DetailActivity.RESULT_ADD) {
+                    Toast.makeText(getContext(), getString(R.string.added_to_favorite_list), Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
     }
 }
