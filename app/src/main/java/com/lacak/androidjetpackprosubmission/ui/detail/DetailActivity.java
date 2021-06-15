@@ -3,19 +3,29 @@ package com.lacak.androidjetpackprosubmission.ui.detail;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
+import com.lacak.androidjetpackprosubmission.R;
+import com.lacak.androidjetpackprosubmission.data.source.local.entity.FavoriteFilmEntity;
 import com.lacak.androidjetpackprosubmission.data.source.local.entity.FilmEntity;
 import com.lacak.androidjetpackprosubmission.databinding.ActivityDetailBinding;
 import com.lacak.androidjetpackprosubmission.viewmodel.ViewModelFactory;
 
-public class DetailActivity extends AppCompatActivity {
+public class DetailActivity extends AppCompatActivity implements View.OnClickListener {
 
     public static final String EXTRA_FILM = "extra_film";
     public static final String TYPE_MOVIE = "movie";
     public static final String TYPE_SHOW = "show";
     private ActivityDetailBinding activityDetailBinding;
+    private DetailViewModel detailViewModel;
+    private FilmEntity filmEntity;
+
+    public static final String EXTRA_FAVORITE_FILM = "extra_favorite_film";
+    public static final int REQUEST_ADD = 100;
+    public static final int RESULT_ADD = 101;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,9 +34,9 @@ public class DetailActivity extends AppCompatActivity {
         setContentView(activityDetailBinding.getRoot());
 
         ViewModelFactory viewModelFactory= ViewModelFactory.getInstance(this, getApplication());
-        DetailViewModel detailViewModel = new ViewModelProvider(this, viewModelFactory).get(DetailViewModel.class);
+        detailViewModel = new ViewModelProvider(this, viewModelFactory).get(DetailViewModel.class);
 
-        FilmEntity filmEntity = getIntent().getParcelableExtra(EXTRA_FILM);
+        filmEntity = getIntent().getParcelableExtra(EXTRA_FILM);
 
         if(filmEntity != null){
             activityDetailBinding.progressBar.setVisibility(View.VISIBLE);
@@ -44,6 +54,8 @@ public class DetailActivity extends AppCompatActivity {
                 });
             }
         }
+
+        activityDetailBinding.floatingActionButtonFavorite.setOnClickListener(this);
     }
 
     private void populateData(FilmEntity inputFilmEntity){
@@ -57,5 +69,31 @@ public class DetailActivity extends AppCompatActivity {
 
         int imageResource = getResources().getIdentifier(inputFilmEntity.getImagePath(), null, getPackageName());
         activityDetailBinding.imageView.setImageDrawable(getResources().getDrawable(imageResource));
+    }
+
+    @Override
+    public void onClick(View v) {
+        if(v.getId() == R.id.floating_action_button_favorite) {
+            FavoriteFilmEntity favoriteFilmEntity = new FavoriteFilmEntity(
+                    filmEntity.getId(),
+                    filmEntity.getTitle(),
+                    filmEntity.getYear(),
+                    filmEntity.getGenres(),
+                    filmEntity.getDuration(),
+                    filmEntity.getRating(),
+                    filmEntity.getOverview(),
+                    filmEntity.getUrl(),
+                    filmEntity.getImagePath(),
+                    filmEntity.getType()
+            );
+
+            Log.d("DetailActivity", "floating action button is clicked");
+
+            Intent intent = new Intent();
+            intent.putExtra(EXTRA_FAVORITE_FILM, favoriteFilmEntity);
+            detailViewModel.insertFavoriteFilm(favoriteFilmEntity);
+            setResult(RESULT_ADD, intent);
+            finish();
+        }
     }
 }
