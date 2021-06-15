@@ -9,7 +9,6 @@ import android.util.Log;
 import android.view.View;
 
 import com.lacak.androidjetpackprosubmission.R;
-import com.lacak.androidjetpackprosubmission.data.source.local.entity.FavoriteFilmEntity;
 import com.lacak.androidjetpackprosubmission.data.source.local.entity.FilmEntity;
 import com.lacak.androidjetpackprosubmission.databinding.ActivityDetailBinding;
 import com.lacak.androidjetpackprosubmission.viewmodel.ViewModelFactory;
@@ -74,24 +73,9 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.floating_action_button_favorite) {
-            FavoriteFilmEntity favoriteFilmEntity = new FavoriteFilmEntity(
-                    filmEntity.getId(),
-                    filmEntity.getTitle(),
-                    filmEntity.getYear(),
-                    filmEntity.getGenres(),
-                    filmEntity.getDuration(),
-                    filmEntity.getRating(),
-                    filmEntity.getOverview(),
-                    filmEntity.getUrl(),
-                    filmEntity.getImagePath(),
-                    filmEntity.getType()
-            );
-
-            Log.d("DetailActivity", "floating action button is clicked");
-
             Intent intent = new Intent();
-            intent.putExtra(EXTRA_FAVORITE_FILM, favoriteFilmEntity);
-            detailViewModel.insertFavoriteFilm(favoriteFilmEntity);
+            intent.putExtra(EXTRA_FAVORITE_FILM, filmEntity);
+            detailViewModel.insertFavoriteFilm(filmEntity);
             setResult(RESULT_ADD, intent);
             finish();
         }

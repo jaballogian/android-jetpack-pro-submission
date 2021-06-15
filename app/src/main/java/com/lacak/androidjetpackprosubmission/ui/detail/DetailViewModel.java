@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.lacak.androidjetpackprosubmission.data.FavoriteFilmRepository;
-import com.lacak.androidjetpackprosubmission.data.source.local.entity.FavoriteFilmEntity;
 import com.lacak.androidjetpackprosubmission.data.source.local.entity.FilmEntity;
 import com.lacak.androidjetpackprosubmission.data.MainRepository;
 
@@ -34,7 +33,7 @@ public class DetailViewModel extends ViewModel {
         return mainRepository.getDetailShow(title);
     }
 
-    public void insertFavoriteFilm(FavoriteFilmEntity favoriteFilmEntity){
-        favoriteFilmRepository.insertFilm(favoriteFilmEntity);
+    public void insertFavoriteFilm(FilmEntity filmEntity){
+        favoriteFilmRepository.insertFilm(filmEntity);
     }
 }

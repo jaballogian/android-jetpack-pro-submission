@@ -4,7 +4,7 @@ import android.app.Application;
 
 import androidx.lifecycle.LiveData;
 
-import com.lacak.androidjetpackprosubmission.data.source.local.entity.FavoriteFilmEntity;
+import com.lacak.androidjetpackprosubmission.data.source.local.entity.FilmEntity;
 import com.lacak.androidjetpackprosubmission.data.source.local.room.FavoriteFilmDao;
 import com.lacak.androidjetpackprosubmission.data.source.local.room.FavoriteFilmRoomDatabase;
 
@@ -32,28 +32,28 @@ public class FavoriteFilmRepository {
         return INSTANCE;
     }
 
-    public LiveData<List<FavoriteFilmEntity>> getAllFavoriteMovies() {
+    public LiveData<List<FilmEntity>> getAllFavoriteMovies() {
         return favoriteFilmDao.getAllFavoriteMovies();
     }
 
-    public LiveData<List<FavoriteFilmEntity>> getAllFavoriteShows() {
+    public LiveData<List<FilmEntity>> getAllFavoriteShows() {
         return favoriteFilmDao.getAllFavoriteShows();
     }
 
-    public void insertFilm(final FavoriteFilmEntity favoriteFilmEntity) {
+    public void insertFilm(final FilmEntity filmEntity) {
         executorService.execute(new Runnable() {
             @Override
             public void run() {
-                favoriteFilmDao.insertFilm(favoriteFilmEntity);
+                favoriteFilmDao.insertFilm(filmEntity);
             }
         });
     }
 
-    public void deleteFilm(final FavoriteFilmEntity favoriteFilmEntity) {
+    public void deleteFilm(final FilmEntity filmEntity) {
         executorService.execute(new Runnable() {
             @Override
             public void run() {
-                favoriteFilmDao.deleteFilm(favoriteFilmEntity);
+                favoriteFilmDao.deleteFilm(filmEntity);
             }
         });
     }

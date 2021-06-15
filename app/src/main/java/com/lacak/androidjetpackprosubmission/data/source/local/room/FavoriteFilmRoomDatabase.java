@@ -6,9 +6,9 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-import com.lacak.androidjetpackprosubmission.data.source.local.entity.FavoriteFilmEntity;
+import com.lacak.androidjetpackprosubmission.data.source.local.entity.FilmEntity;
 
-@Database(entities = {FavoriteFilmEntity.class}, version = 1, exportSchema = false)
+@Database(entities = {FilmEntity.class}, version = 1, exportSchema = false)
 public abstract class FavoriteFilmRoomDatabase extends RoomDatabase {
     public abstract FavoriteFilmDao favoriteFilmDao();
 

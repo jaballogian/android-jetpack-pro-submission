@@ -7,7 +7,7 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
-import com.lacak.androidjetpackprosubmission.data.source.local.entity.FavoriteFilmEntity;
+import com.lacak.androidjetpackprosubmission.data.source.local.entity.FilmEntity;
 
 import java.util.List;
 
@@ -15,14 +15,14 @@ import java.util.List;
 public interface FavoriteFilmDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    void insertFilm(FavoriteFilmEntity favoriteFilmEntity);
+    void insertFilm(FilmEntity filmEntity);
 
     @Delete()
-    void deleteFilm(FavoriteFilmEntity favoriteFilmEntity);
+    void deleteFilm(FilmEntity filmEntity);
 
     @Query("select * from favoriteFilmTable where type = 'movie'")
-    LiveData<List<FavoriteFilmEntity>> getAllFavoriteMovies();
+    LiveData<List<FilmEntity>> getAllFavoriteMovies();
 
     @Query("select * from favoriteFilmTable where type = 'show'")
-    LiveData<List<FavoriteFilmEntity>> getAllFavoriteShows();
+    LiveData<List<FilmEntity>> getAllFavoriteShows();
 }
