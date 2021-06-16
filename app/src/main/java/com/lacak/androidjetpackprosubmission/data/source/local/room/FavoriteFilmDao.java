@@ -25,4 +25,11 @@ public interface FavoriteFilmDao {
 
     @Query("select * from favoriteFilmTable where type = 'show'")
     LiveData<List<FilmEntity>> getAllFavoriteShows();
+
+    @Query("select * from favoriteFilmTable where type = 'movie' and id = :id")
+    LiveData<FilmEntity> getDetailFavoriteMovie(int id);
+
+    @Query("select * from favoriteFilmTable where type = 'show' and id = :id")
+    LiveData<FilmEntity> getDetailFavoriteShow(int id);
+
 }
