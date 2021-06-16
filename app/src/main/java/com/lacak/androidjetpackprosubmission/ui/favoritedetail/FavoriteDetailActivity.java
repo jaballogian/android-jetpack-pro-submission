@@ -3,14 +3,17 @@ package com.lacak.androidjetpackprosubmission.ui.favoritedetail;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
+import com.lacak.androidjetpackprosubmission.R;
 import com.lacak.androidjetpackprosubmission.data.source.local.entity.FilmEntity;
 import com.lacak.androidjetpackprosubmission.databinding.ActivityFavoriteDetailBinding;
 import com.lacak.androidjetpackprosubmission.viewmodel.ViewModelFactory;
 
-public class FavoriteDetailActivity extends AppCompatActivity {
+public class FavoriteDetailActivity extends AppCompatActivity implements View.OnClickListener {
 
     public static final String EXTRA_FILM = "extra_film";
     public static final String TYPE_MOVIE = "movie";
@@ -50,6 +53,8 @@ public class FavoriteDetailActivity extends AppCompatActivity {
                 });
             }
         }
+
+        activityFavoriteDetailBinding.floatingActionButtonDelete.setOnClickListener(this);
     }
 
     private void populateData(FilmEntity inputFilmEntity) {
@@ -63,5 +68,18 @@ public class FavoriteDetailActivity extends AppCompatActivity {
 
         int imageResource = getResources().getIdentifier(inputFilmEntity.getImagePath(), null, getPackageName());
         activityFavoriteDetailBinding.imageView.setImageDrawable(getResources().getDrawable(imageResource));
+    }
+
+
+    @Override
+    public void onClick(View v) {
+        if(v.getId() == R.id.floating_action_button_delete) {
+            Toast.makeText(this, "delete button is clicked", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent();
+            intent.putExtra(EXTRA_FAVORITE_FILM, filmEntity);
+            favoriteDetailViewModel.deleteFavoriteFilm(filmEntity);
+            setResult(RESULT_DELETE, intent);
+            finish();
+        }
     }
 }
