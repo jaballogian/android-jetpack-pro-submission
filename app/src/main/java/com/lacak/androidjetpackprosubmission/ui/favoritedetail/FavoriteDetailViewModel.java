@@ -29,4 +29,8 @@ public class FavoriteDetailViewModel extends ViewModel {
     public LiveData<FilmEntity> getSelectedFavoriteShow() {
         return favoriteFilmRepository.getDetailFavoriteShow(id);
     }
+
+    public void deleteFavoriteFilm(FilmEntity filmEntity) {
+        favoriteFilmRepository.deleteFilm(filmEntity);
+    }
 }
