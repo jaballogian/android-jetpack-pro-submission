@@ -11,6 +11,7 @@ import com.lacak.androidjetpackprosubmission.data.FavoriteFilmRepository;
 import com.lacak.androidjetpackprosubmission.data.MainRepository;
 import com.lacak.androidjetpackprosubmission.di.Injection;
 import com.lacak.androidjetpackprosubmission.ui.detail.DetailViewModel;
+import com.lacak.androidjetpackprosubmission.ui.favoritedetail.FavoriteDetailViewModel;
 import com.lacak.androidjetpackprosubmission.ui.favoritefilm.FavoriteFilmViewModel;
 import com.lacak.androidjetpackprosubmission.ui.film.FilmViewModel;
 
@@ -51,6 +52,8 @@ public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory{
             return (T) new DetailViewModel(mainRepository, favoriteFilmRepository);
         } else if (modelClass.isAssignableFrom(FavoriteFilmViewModel.class)) {
             return (T) new FavoriteFilmViewModel(application);
+        } else if (modelClass.isAssignableFrom(FavoriteDetailViewModel.class)) {
+            return (T) new FavoriteDetailViewModel(favoriteFilmRepository);
         }
 
         throw new IllegalArgumentException("Unknown ViewModel class: " + modelClass.getName());
