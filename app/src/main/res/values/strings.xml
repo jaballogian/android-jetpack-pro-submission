@@ -9,6 +9,7 @@
     <string name="go_to_favorite_page">Go To Favorite Page</string>
     <string name="favorite">Favorite</string>
     <string name="added_to_favorite_list">Added to favorite list</string>
+    <string name="deleted_from_favorite_list">Deleted from favorite list</string>
 
     <string name="test">Test</string>
     <string name="lorem_ipsum">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</string>

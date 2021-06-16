@@ -1,5 +1,6 @@
 package com.lacak.androidjetpackprosubmission.ui.favoritefilm;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,10 +12,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.lacak.androidjetpackprosubmission.R;
 import com.lacak.androidjetpackprosubmission.data.source.local.entity.FilmEntity;
 import com.lacak.androidjetpackprosubmission.databinding.FragmentFavoriteFilmBinding;
+import com.lacak.androidjetpackprosubmission.ui.favoritedetail.FavoriteDetailActivity;
 import com.lacak.androidjetpackprosubmission.viewmodel.ViewModelFactory;
 
 import java.util.List;
@@ -76,6 +79,25 @@ public class FavoriteFilmFragment extends Fragment {
         fragmentFavoriteFilmBinding.recylerViewFavoriteFilm.setHasFixedSize(true);
         fragmentFavoriteFilmBinding.recylerViewFavoriteFilm.setAdapter(favoriteFilmAdapter);
 
-        // TODO: ADD ON ITEM CLICK LISTENERE HERE
+        favoriteFilmAdapter.setOnItemClickCallback(new FavoriteFilmAdapter.OnItemClickCallback() {
+            @Override
+            public void onItemClicked(FilmEntity filmEntity) {
+                Intent moveToFavoriteDetailActivity = new Intent(getContext(), FavoriteDetailActivity.class);
+                moveToFavoriteDetailActivity.putExtra(FavoriteDetailActivity.EXTRA_FILM, filmEntity);
+                startActivityForResult(moveToFavoriteDetailActivity, FavoriteDetailActivity.REQUEST_DELETE);
+            }
+        });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(data != null) {
+            if(requestCode == FavoriteDetailActivity.REQUEST_DELETE) {
+                if(resultCode == FavoriteDetailActivity.RESULT_DELETE) {
+                    Toast.makeText(getContext(), getString(R.string.deleted_from_favorite_list), Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
     }
 }
