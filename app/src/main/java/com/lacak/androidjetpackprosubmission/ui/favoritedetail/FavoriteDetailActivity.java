@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModelProvider;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 import com.lacak.androidjetpackprosubmission.R;
 import com.lacak.androidjetpackprosubmission.data.source.local.entity.FilmEntity;
@@ -43,13 +42,17 @@ public class FavoriteDetailActivity extends AppCompatActivity implements View.On
             if(filmEntity.getType().equals(TYPE_MOVIE)) {
                 favoriteDetailViewModel.setSelectedFavoriteMovie(filmEntity.getId());
                 favoriteDetailViewModel.getSelectedFavoriteMovie().observe(this, filmEntityData -> {
-                    populateData(filmEntityData);
+                    if(filmEntityData != null) {
+                        populateData(filmEntityData);
+                    }
                 });
             }
             else if(filmEntity.getType().equals(TYPE_SHOW)) {
                 favoriteDetailViewModel.setSelectedFavoriteShow(filmEntity.getId());
                 favoriteDetailViewModel.getSelectedFavoriteShow().observe(this, filmEntityData -> {
-                   populateData(filmEntityData);
+                    if(filmEntityData != null) {
+                        populateData(filmEntityData);
+                    }
                 });
             }
         }
@@ -74,10 +77,9 @@ public class FavoriteDetailActivity extends AppCompatActivity implements View.On
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.floating_action_button_delete) {
-            Toast.makeText(this, "delete button is clicked", Toast.LENGTH_SHORT).show();
+            favoriteDetailViewModel.deleteFavoriteFilm(filmEntity);
             Intent intent = new Intent();
             intent.putExtra(EXTRA_FAVORITE_FILM, filmEntity);
-            favoriteDetailViewModel.deleteFavoriteFilm(filmEntity);
             setResult(RESULT_DELETE, intent);
             finish();
         }
