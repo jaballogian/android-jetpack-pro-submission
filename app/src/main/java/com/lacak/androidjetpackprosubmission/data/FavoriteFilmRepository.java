@@ -40,6 +40,14 @@ public class FavoriteFilmRepository {
         return favoriteFilmDao.getAllFavoriteShows();
     }
 
+    public LiveData<FilmEntity> getDetailFavoriteMovie(int id) {
+        return favoriteFilmDao.getDetailFavoriteMovie(id);
+    }
+
+    public LiveData<FilmEntity> getDetailFavoriteShow(int id) {
+        return favoriteFilmDao.getDetailFavoriteShow(id);
+    }
+
     public void insertFilm(final FilmEntity filmEntity) {
         executorService.execute(new Runnable() {
             @Override
