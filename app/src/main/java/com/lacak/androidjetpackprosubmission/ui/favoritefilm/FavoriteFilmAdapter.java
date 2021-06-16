@@ -16,6 +16,7 @@ import java.util.List;
 public class FavoriteFilmAdapter extends RecyclerView.Adapter<FavoriteFilmAdapter.FavoriteFilmViewHolder> {
     private final ArrayList<FilmEntity> favoriteFilmList = new ArrayList<>();
     private final Activity activity;
+    private static OnItemClickCallback onItemClickCallback;
 
     FavoriteFilmAdapter(Activity activity) {
         this.activity = activity;
@@ -25,6 +26,10 @@ public class FavoriteFilmAdapter extends RecyclerView.Adapter<FavoriteFilmAdapte
         if(favoriteFilmList == null) return;
         this.favoriteFilmList.clear();
         this.favoriteFilmList.addAll(favoriteFilmList);
+    }
+
+    public void setOnItemClickCallback(OnItemClickCallback onItemClickCallback) {
+        this.onItemClickCallback = onItemClickCallback;
     }
 
     @NonNull
@@ -60,7 +65,13 @@ public class FavoriteFilmAdapter extends RecyclerView.Adapter<FavoriteFilmAdapte
             int imageResource = activity.getResources().getIdentifier(filmEntity.getImagePath(), null, activity.getPackageName());
             binding.imageView.setImageDrawable(activity.getResources().getDrawable(imageResource));
 
-            // TODO: ADD ON ITEM CLICK LISTENER HERE
+            itemView.setOnClickListener(v -> {
+                onItemClickCallback.onItemClicked(filmEntity);
+            });
         }
+    }
+
+    public interface OnItemClickCallback {
+        void onItemClicked(FilmEntity filmEntity);
     }
 }
