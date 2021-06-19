@@ -1,5 +1,6 @@
 package com.lacak.androidjetpackprosubmission.ui.main;
 
+import androidx.test.espresso.action.ViewActions;
 import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 
@@ -14,8 +15,10 @@ import java.util.List;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.action.ViewActions.pressBack;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
@@ -80,5 +83,24 @@ public class MainActivityTest {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    @Test
+    public void loadFavoriteMovies() {
+        delayTwoSecond();
+        onView(withId(R.id.recyler_view_film)).perform(RecyclerViewActions.actionOnItemAtPosition(7, click()));
+        delayTwoSecond();
+        onView(withId(R.id.floating_action_button_favorite)).perform(click());
+        onView(withId(R.id.goToFavoriteActivity)).perform(click());
+        onView(withId(R.id.recyler_view_favorite_film)).check(matches(isDisplayed()));
+        onView(withId(R.id.recyler_view_favorite_film)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
+        onView(withId(R.id.text_view_title)).check(matches(isDisplayed()));
+        onView(withId(R.id.text_view_genres)).check(matches(isDisplayed()));
+        onView(withId(R.id.text_view_year)).check(matches(isDisplayed()));
+        onView(withId(R.id.text_view_rating)).check(matches(isDisplayed()));
+        onView(withId(R.id.text_view_duration)).check(matches(isDisplayed()));
+        onView(withId(R.id.text_view_overview)).check(matches(isDisplayed()));
+        onView(withId(R.id.floating_action_button_delete)).perform(click());
+        onView(isRoot()).perform(ViewActions.pressBack());
     }
 }
