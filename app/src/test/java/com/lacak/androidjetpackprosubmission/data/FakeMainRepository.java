@@ -25,6 +25,7 @@ public class FakeMainRepository implements MainDataSource{
             ArrayList<FilmEntity> moviesList = new ArrayList<>();
             for (FilmResponse response : movieResponses) {
                 FilmEntity movie = new FilmEntity(
+                        response.getId(),
                         response.getTitle(),
                         response.getYear(),
                         response.getGenres(),
@@ -32,7 +33,8 @@ public class FakeMainRepository implements MainDataSource{
                         response.getRating(),
                         response.getOverview(),
                         response.getUrl(),
-                        response.getImagePath()
+                        response.getImagePath(),
+                        response.getType()
                 );
                 moviesList.add(movie);
             }
@@ -49,6 +51,7 @@ public class FakeMainRepository implements MainDataSource{
             ArrayList<FilmEntity> showsList = new ArrayList<>();
             for (FilmResponse response : showResponses) {
                 FilmEntity show = new FilmEntity(
+                        response.getId(),
                         response.getTitle(),
                         response.getYear(),
                         response.getGenres(),
@@ -56,7 +59,8 @@ public class FakeMainRepository implements MainDataSource{
                         response.getRating(),
                         response.getOverview(),
                         response.getUrl(),
-                        response.getImagePath()
+                        response.getImagePath(),
+                        response.getType()
                 );
                 showsList.add(show);
             }
@@ -67,51 +71,60 @@ public class FakeMainRepository implements MainDataSource{
     }
 
     @Override
-    public LiveData<FilmEntity> getDetailFilm(final String title) {
-        MutableLiveData<FilmEntity> detailFilmResult = new MutableLiveData<>();
+    public LiveData<FilmEntity> getDetailMovie(final String title) {
+        MutableLiveData<FilmEntity> detailMovieResult = new MutableLiveData<>();
 
         remoteDataSource.getAllMovies(movieResponses -> {
             FilmEntity movie = null;
             for (FilmResponse response : movieResponses) {
                 if (response.getTitle().equals(title)) {
                     movie = new FilmEntity(
-                        response.getTitle(),
-                        response.getYear(),
-                        response.getGenres(),
-                        response.getDuration(),
-                        response.getRating(),
-                        response.getOverview(),
-                        response.getUrl(),
-                        response.getImagePath()
+                            response.getId(),
+                            response.getTitle(),
+                            response.getYear(),
+                            response.getGenres(),
+                            response.getDuration(),
+                            response.getRating(),
+                            response.getOverview(),
+                            response.getUrl(),
+                            response.getImagePath(),
+                            response.getType()
                     );
                 }
             }
 
-            if(movie == null){
-                remoteDataSource.getAllShows(showResponses -> {
-                    FilmEntity show = null;
-                    for (FilmResponse response : showResponses) {
-                        if (response.getTitle().equals(title)) {
-                            show = new FilmEntity(
-                                response.getTitle(),
-                                response.getYear(),
-                                response.getGenres(),
-                                response.getDuration(),
-                                response.getRating(),
-                                response.getOverview(),
-                                response.getUrl(),
-                                response.getImagePath()
-                            );
-                        }
-                    }
-                    detailFilmResult.postValue(show);
-                });
-            }
-            else {
-                detailFilmResult.postValue(movie);
-            }
+            detailMovieResult.postValue(movie);
         });
 
-        return detailFilmResult;
+        return detailMovieResult;
+    }
+
+    @Override
+    public LiveData<FilmEntity> getDetailShow(final String title) {
+        MutableLiveData<FilmEntity> detailShowResult = new MutableLiveData<>();
+
+        remoteDataSource.getAllShows(showResponses -> {
+            FilmEntity show = null;
+            for (FilmResponse response : showResponses) {
+                if (response.getTitle().equals(title)) {
+                    show = new FilmEntity(
+                            response.getId(),
+                            response.getTitle(),
+                            response.getYear(),
+                            response.getGenres(),
+                            response.getDuration(),
+                            response.getRating(),
+                            response.getOverview(),
+                            response.getUrl(),
+                            response.getImagePath(),
+                            response.getType()
+                    );
+                }
+            }
+
+            detailShowResult.postValue(show);
+        });
+
+        return detailShowResult;
     }
 }
