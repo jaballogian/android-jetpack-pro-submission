@@ -36,12 +36,4 @@ public class FakeFavoriteFilmRepository {
     public LiveData<FilmEntity> getDetailFavoriteShow(int id) {
         return localDataSource.getDetailFavoriteShow(id);
     }
-
-    public void insertFilm(final FilmEntity filmEntity) {
-        localDataSource.insertFilm(filmEntity);
-    }
-
-    public void deleteFilm(final FilmEntity filmEntity) {
-        localDataSource.deleteFilm(filmEntity);
-    }
 }
