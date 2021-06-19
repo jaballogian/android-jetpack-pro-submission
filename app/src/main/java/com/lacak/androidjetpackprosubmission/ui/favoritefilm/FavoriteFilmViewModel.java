@@ -1,7 +1,5 @@
 package com.lacak.androidjetpackprosubmission.ui.favoritefilm;
 
-import android.app.Application;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -13,8 +11,8 @@ import java.util.List;
 public class FavoriteFilmViewModel extends ViewModel {
     private FavoriteFilmRepository favoriteFilmRepository;
 
-    public FavoriteFilmViewModel(Application application) {
-        favoriteFilmRepository = new FavoriteFilmRepository(application);
+    public FavoriteFilmViewModel(FavoriteFilmRepository favoriteFilmRepository) {
+        this.favoriteFilmRepository = favoriteFilmRepository;
     }
 
     LiveData<List<FilmEntity>> getAllFavoriteMovies() {
