@@ -1,24 +1,18 @@
 package com.lacak.androidjetpackprosubmission.data;
 
-import android.app.Application;
-
+import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 
 import com.lacak.androidjetpackprosubmission.data.source.local.LocalDataSource;
 import com.lacak.androidjetpackprosubmission.data.source.local.entity.FilmEntity;
-import com.lacak.androidjetpackprosubmission.data.source.local.room.FavoriteFilmDao;
-import com.lacak.androidjetpackprosubmission.data.source.local.room.FavoriteFilmRoomDatabase;
 
 import java.util.List;
 
 public class FakeFavoriteFilmRepository {
-    private FavoriteFilmDao favoriteFilmDao;
     private LocalDataSource localDataSource;
 
-    FakeFavoriteFilmRepository(Application application) {
-        FavoriteFilmRoomDatabase favoriteFilmRoomDatabase = FavoriteFilmRoomDatabase.getDatabase(application);
-        favoriteFilmDao = favoriteFilmRoomDatabase.favoriteFilmDao();
-        localDataSource = new LocalDataSource(favoriteFilmDao);
+    public FakeFavoriteFilmRepository(@NonNull LocalDataSource localDataSource) {
+        this.localDataSource = localDataSource;
     }
 
     public LiveData<List<FilmEntity>> getAllFavoriteMovies() {
