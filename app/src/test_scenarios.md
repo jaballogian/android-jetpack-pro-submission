@@ -38,6 +38,44 @@
 * Ensure that the data is not null
 * Ensure that the data has the correct value
 
+### Favorite Film View Model Test
+
+1. Load a list of favorite Movies:
+* Ensure that the list is not null
+* Ensure that the list has the correct size/length
+
+2. Load a list of favorite TV Shows:
+* Ensure that the list is not null
+* Ensure that the list has the correct size/length
+
+### Favorite Detail View Model Test
+
+1. Load the selected favorite Movie data:
+* Ensure that the data is not null
+* Ensure that the data has the correct value
+
+2. Load the selected favorite TV Show data:
+* Ensure that the data is not null
+* Ensure that the data has the correct value
+
+### Favorite Film Repository Test
+
+1. Load a list of favorite Movies:
+* Ensure that the list is not null
+* Ensure that the list has the correct size/length
+
+2. Load a list of favorite TV Shows:
+* Ensure that the list is not null
+* Ensure that the list has the correct size/length
+
+3. Load the selected favorite Movie data:
+* Ensure that the data is not null
+* Ensure that the data has the correct value
+
+4. Load the selected favorite TV Show data:
+* Ensure that the data is not null
+* Ensure that the data has the correct value
+
 # INSTRUMENTATION TESTING SCENARIOS
 
 ### Film Recycler View
