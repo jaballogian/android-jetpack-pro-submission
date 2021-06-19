@@ -4,23 +4,22 @@ import android.app.Application;
 
 import androidx.lifecycle.LiveData;
 
+import com.lacak.androidjetpackprosubmission.data.source.local.LocalDataSource;
 import com.lacak.androidjetpackprosubmission.data.source.local.entity.FilmEntity;
 import com.lacak.androidjetpackprosubmission.data.source.local.room.FavoriteFilmDao;
 import com.lacak.androidjetpackprosubmission.data.source.local.room.FavoriteFilmRoomDatabase;
 
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class FavoriteFilmRepository {
     private FavoriteFilmDao favoriteFilmDao;
-    private ExecutorService executorService;
+    private LocalDataSource localDataSource;
     private volatile static FavoriteFilmRepository INSTANCE = null;
 
     public FavoriteFilmRepository(Application application) {
-        executorService = Executors.newSingleThreadExecutor();
         FavoriteFilmRoomDatabase favoriteFilmRoomDatabase = FavoriteFilmRoomDatabase.getDatabase(application);
         favoriteFilmDao = favoriteFilmRoomDatabase.favoriteFilmDao();
+        localDataSource = new LocalDataSource(favoriteFilmDao);
     }
 
     public static FavoriteFilmRepository getInstance(Application application){
@@ -33,36 +32,26 @@ public class FavoriteFilmRepository {
     }
 
     public LiveData<List<FilmEntity>> getAllFavoriteMovies() {
-        return favoriteFilmDao.getAllFavoriteMovies();
+        return localDataSource.getAllFavoriteMovies();
     }
 
     public LiveData<List<FilmEntity>> getAllFavoriteShows() {
-        return favoriteFilmDao.getAllFavoriteShows();
+        return localDataSource.getAllFavoriteShows();
     }
 
     public LiveData<FilmEntity> getDetailFavoriteMovie(int id) {
-        return favoriteFilmDao.getDetailFavoriteMovie(id);
+        return localDataSource.getDetailFavoriteMovie(id);
     }
 
     public LiveData<FilmEntity> getDetailFavoriteShow(int id) {
-        return favoriteFilmDao.getDetailFavoriteShow(id);
+        return localDataSource.getDetailFavoriteShow(id);
     }
 
     public void insertFilm(final FilmEntity filmEntity) {
-        executorService.execute(new Runnable() {
-            @Override
-            public void run() {
-                favoriteFilmDao.insertFilm(filmEntity);
-            }
-        });
+        localDataSource.insertFilm(filmEntity);
     }
 
     public void deleteFilm(final FilmEntity filmEntity) {
-        executorService.execute(new Runnable() {
-            @Override
-            public void run() {
-                favoriteFilmDao.deleteFilm(filmEntity);
-            }
-        });
+        localDataSource.deleteFilm(filmEntity);
     }
 }
