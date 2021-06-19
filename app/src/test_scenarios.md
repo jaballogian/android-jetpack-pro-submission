@@ -80,16 +80,32 @@
 
 ### Film Recycler View
 
-1. Load Movies list data into recyler view:
+1. Load Movies list data into recycler view:
 * Ensure that the recycler view shows movies list data
-* Scroll the recyler view into half of the list size/length item
-* Scroll the recyler view into the last item
+* Scroll the recycler view into half of the list size/length item
+* Scroll the recycler view into the last item
 
 ### Detail Activity
-1. Load the first index film data from recyler view:
+
+1. Load the first index film data from recycler view:
 * Ensure that all dynamic text views in Detail Activity is shown
 * Ensure that all dynamic text views in Detail Activity shows the correct data
 
-2. Load the last index film data from recyler view:
+2. Load the last index film data from recycler view:
 * Ensure that all dynamic text views in Detail Activity is shown
 * Ensure that all dynamic text views in Detail Activity shows the correct data
+
+### Favorite Film Recycler View and Favorite Film Detail Activity
+
+1. Load Movies list data into recycler view:
+* Ensure that the recycler view shows movies list data
+* Scroll and click the recycler view into the desired item
+* Ensure that all dynamic text views in Detail Activity is shown
+* Click the favorite (add to favorite list) button
+* Click the favorite (go to Favorite Activity) button
+* Ensure that favorite recycler view shows favorite movies list data
+* Click the first item of favorite recycler view
+* Ensure that all dynamic text views in Favorite Detail Activity is shown
+* Click the trash (delete from favorite list) button
+* Press the hardware back button
+* Ensure that the list of movies is shown in Home Activity
