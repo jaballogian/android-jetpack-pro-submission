@@ -7,21 +7,20 @@ import com.lacak.androidjetpackprosubmission.data.source.local.room.FavoriteFilm
 
 import java.util.List;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class LocalDataSource {
     private static LocalDataSource INSTANCE;
     private final FavoriteFilmDao favoriteFilmDao;
     private ExecutorService executorService;
 
-    public LocalDataSource(FavoriteFilmDao favoriteFilmDao) {
-        executorService = Executors.newSingleThreadExecutor();
+    public LocalDataSource(FavoriteFilmDao favoriteFilmDao, ExecutorService executorService) {
+        this.executorService = executorService;
         this.favoriteFilmDao = favoriteFilmDao;
     }
 
-    public static LocalDataSource getInstance(FavoriteFilmDao favoriteFilmDao) {
+    public static LocalDataSource getInstance(FavoriteFilmDao favoriteFilmDao, ExecutorService executorService) {
         if(INSTANCE == null) {
-            INSTANCE = new LocalDataSource(favoriteFilmDao);
+            INSTANCE = new LocalDataSource(favoriteFilmDao, executorService);
         }
         return INSTANCE;
     }
