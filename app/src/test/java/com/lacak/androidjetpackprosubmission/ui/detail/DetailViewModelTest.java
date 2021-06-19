@@ -4,6 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 
+import com.lacak.androidjetpackprosubmission.data.FavoriteFilmRepository;
 import com.lacak.androidjetpackprosubmission.data.source.local.entity.FilmEntity;
 import com.lacak.androidjetpackprosubmission.data.MainRepository;
 import com.lacak.androidjetpackprosubmission.utils.MoviesListDataGenerator;
@@ -34,24 +35,27 @@ public class DetailViewModelTest {
     private MainRepository mainRepository;
 
     @Mock
+    private FavoriteFilmRepository favoriteFilmRepository;
+
+    @Mock
     private Observer<FilmEntity> movieObserver, showObserver;
 
     @Before
     public void setUp(){
-        detailMovieViewModel = new DetailViewModel(mainRepository);
-        detailMovieViewModel.setSelectedFilm(sampleMovieEntity.getTitle());
+        detailMovieViewModel = new DetailViewModel(mainRepository, favoriteFilmRepository);
+        detailMovieViewModel.setSelectedMovie(sampleMovieEntity.getTitle());
 
-        detailShowViewModel = new DetailViewModel(mainRepository);
-        detailShowViewModel.setSelectedFilm(sampleShowEntity.getTitle());
+        detailShowViewModel = new DetailViewModel(mainRepository, favoriteFilmRepository);
+        detailShowViewModel.setSelectedShow(sampleShowEntity.getTitle());
     }
 
     @Test
-    public void getFilmEntity() {
+    public void getMovieEntity() {
         MutableLiveData<FilmEntity> movie = new MutableLiveData<>();
         movie.setValue(sampleMovieEntity);
-        when(mainRepository.getDetailFilm(sampleMovieEntity.getTitle())).thenReturn(movie);
-        FilmEntity movieEntity = detailMovieViewModel.getSelectedFilm().getValue();
-        verify(mainRepository).getDetailFilm(sampleMovieEntity.getTitle());
+        when(mainRepository.getDetailMovie(sampleMovieEntity.getTitle())).thenReturn(movie);
+        FilmEntity movieEntity = detailMovieViewModel.getSelectedMovie().getValue();
+        verify(mainRepository).getDetailMovie(sampleMovieEntity.getTitle());
         assertNotNull(movieEntity);
         assertEquals(sampleMovieEntity.getTitle(), movieEntity.getTitle());
         assertEquals(sampleMovieEntity.getGenres(), movieEntity.getGenres());
@@ -62,14 +66,17 @@ public class DetailViewModelTest {
         assertEquals(sampleMovieEntity.getImagePath(), movieEntity.getImagePath());
         assertEquals(sampleMovieEntity.getUrl(), movieEntity.getUrl());
 
-        detailMovieViewModel.getSelectedFilm().observeForever(movieObserver);
+        detailMovieViewModel.getSelectedMovie().observeForever(movieObserver);
         verify(movieObserver).onChanged(sampleMovieEntity);
+    }
 
+    @Test
+    public void getShowEntity() {
         MutableLiveData<FilmEntity> show = new MutableLiveData<>();
         show.setValue(sampleShowEntity);
-        when(mainRepository.getDetailFilm(sampleShowEntity.getTitle())).thenReturn(show);
-        FilmEntity showEntity = detailShowViewModel.getSelectedFilm().getValue();
-        verify(mainRepository).getDetailFilm(sampleShowEntity.getTitle());
+        when(mainRepository.getDetailShow(sampleShowEntity.getTitle())).thenReturn(show);
+        FilmEntity showEntity = detailShowViewModel.getSelectedShow().getValue();
+        verify(mainRepository).getDetailShow(sampleShowEntity.getTitle());
         assertNotNull(showEntity);
         assertEquals(sampleShowEntity.getTitle(), showEntity.getTitle());
         assertEquals(sampleShowEntity.getGenres(), showEntity.getGenres());
@@ -80,7 +87,7 @@ public class DetailViewModelTest {
         assertEquals(sampleShowEntity.getImagePath(), showEntity.getImagePath());
         assertEquals(sampleShowEntity.getUrl(), showEntity.getUrl());
 
-        detailShowViewModel.getSelectedFilm().observeForever(showObserver);
+        detailShowViewModel.getSelectedShow().observeForever(showObserver);
         verify(showObserver).onChanged(sampleShowEntity);
     }
 }
