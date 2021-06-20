@@ -7,8 +7,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.paging.PagedList;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,8 +21,6 @@ import com.lacak.androidjetpackprosubmission.data.source.local.entity.FilmEntity
 import com.lacak.androidjetpackprosubmission.databinding.FragmentFavoriteFilmBinding;
 import com.lacak.androidjetpackprosubmission.ui.favoritedetail.FavoriteDetailActivity;
 import com.lacak.androidjetpackprosubmission.viewmodel.ViewModelFactory;
-
-import java.util.List;
 
 public class FavoriteFilmFragment extends Fragment {
 
@@ -57,6 +57,7 @@ public class FavoriteFilmFragment extends Fragment {
             // ADD DATA TO RECYLER VIEW BASED ON SELECTED TAB
             if(index == 1){
                 favoriteFilmViewModel.getAllFavoriteMovies().observe(this, favoriteMovies -> {
+//                    Log.d("FavFilmFragment", "favoriteMovies: " + favoriteMovies.toString());
                     fragmentFavoriteFilmBinding.progressBar.setVisibility(View.GONE);
                     addDataToRecylerView(favoriteMovies);
                 });
@@ -64,16 +65,19 @@ public class FavoriteFilmFragment extends Fragment {
             else if(index == 2){
                 favoriteFilmViewModel.getAllFavoriteShows().observe(this, favoriteShows -> {
                     fragmentFavoriteFilmBinding.progressBar.setVisibility(View.GONE);
+//                    Log.d("FavFilmFragment", "favoriteShows: " + favoriteShows.toString());
                     addDataToRecylerView(favoriteShows);
                 });
             }
         }
     }
 
-    private void addDataToRecylerView(List<FilmEntity> inputList) {
+    private void addDataToRecylerView(PagedList<FilmEntity> inputList) {
         FavoriteFilmAdapter favoriteFilmAdapter = new FavoriteFilmAdapter(getActivity());
-        favoriteFilmAdapter.setFavoriteFilmList(inputList);
-        favoriteFilmAdapter.notifyDataSetChanged();
+//        favoriteFilmAdapter.setFavoriteFilmList(inputList);
+//        favoriteFilmAdapter.notifyDataSetChanged();
+//        Log.d("FavFilmFragment", "inputList: " + inputList.toString());
+        favoriteFilmAdapter.submitList(inputList);
 
         fragmentFavoriteFilmBinding.recylerViewFavoriteFilm.setLayoutManager(new LinearLayoutManager(getContext()));
         fragmentFavoriteFilmBinding.recylerViewFavoriteFilm.setHasFixedSize(true);
