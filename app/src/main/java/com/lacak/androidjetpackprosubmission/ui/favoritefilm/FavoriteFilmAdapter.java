@@ -13,11 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.lacak.androidjetpackprosubmission.data.source.local.entity.FilmEntity;
 import com.lacak.androidjetpackprosubmission.databinding.ItemFilmBinding;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class FavoriteFilmAdapter extends PagedListAdapter<FilmEntity, FavoriteFilmAdapter.FavoriteFilmViewHolder> {
-    private final ArrayList<FilmEntity> favoriteFilmList = new ArrayList<>();
     private final Activity activity;
     private static OnItemClickCallback onItemClickCallback;
 
@@ -39,12 +35,6 @@ public class FavoriteFilmAdapter extends PagedListAdapter<FilmEntity, FavoriteFi
                 }
             };
 
-    void setFavoriteFilmList(List<FilmEntity> favoriteFilmList) {
-        if(favoriteFilmList == null) return;
-        this.favoriteFilmList.clear();
-        this.favoriteFilmList.addAll(favoriteFilmList);
-    }
-
     public void setOnItemClickCallback(OnItemClickCallback onItemClickCallback) {
         this.onItemClickCallback = onItemClickCallback;
     }
@@ -58,12 +48,10 @@ public class FavoriteFilmAdapter extends PagedListAdapter<FilmEntity, FavoriteFi
 
     @Override
     public void onBindViewHolder(@NonNull FavoriteFilmAdapter.FavoriteFilmViewHolder holder, int position) {
-        holder.bind(favoriteFilmList.get(position));
-    }
-
-    @Override
-    public int getItemCount() {
-        return favoriteFilmList.size();
+        FilmEntity filmEntity = getItem(position);
+        if(filmEntity != null) {
+            holder.bind(filmEntity);
+        }
     }
 
     class FavoriteFilmViewHolder extends RecyclerView.ViewHolder {
