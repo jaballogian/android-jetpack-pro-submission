@@ -3,11 +3,10 @@ package com.lacak.androidjetpackprosubmission.ui.favoritefilm;
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
+import androidx.paging.PagedList;
 
 import com.lacak.androidjetpackprosubmission.data.FavoriteFilmRepository;
 import com.lacak.androidjetpackprosubmission.data.source.local.entity.FilmEntity;
-import com.lacak.androidjetpackprosubmission.utils.MoviesListDataGenerator;
-import com.lacak.androidjetpackprosubmission.utils.ShowsListDataGenerator;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -33,7 +32,10 @@ public class FavoriteFilmViewModelTest {
     private FavoriteFilmRepository favoriteFilmRepository;
 
     @Mock
-    private Observer<List<FilmEntity>> observer;
+    private Observer<PagedList<FilmEntity>> observer;
+
+    @Mock
+    private PagedList<FilmEntity> pagedList;
 
     @Before
     public void setUp() {
@@ -42,15 +44,16 @@ public class FavoriteFilmViewModelTest {
 
     @Test
     public void getAllFavoriteMovies() {
-        List<FilmEntity> dummyMovies = MoviesListDataGenerator.generateMoviesListData();
-        MutableLiveData<List<FilmEntity>> movies = new MutableLiveData<>();
+        PagedList<FilmEntity> dummyMovies = pagedList;
+        when(dummyMovies.size()).thenReturn(5);
+        MutableLiveData<PagedList<FilmEntity>> movies = new MutableLiveData<>();
         movies.setValue(dummyMovies);
 
-        when(favoriteFilmViewModel.getAllFavoriteMovies()).thenReturn(movies);
-        List<FilmEntity> moviesList = favoriteFilmViewModel.getAllFavoriteMovies().getValue();
+        when(favoriteFilmRepository.getAllFavoriteMovies()).thenReturn(movies);
+        List<FilmEntity> moviesEntities = favoriteFilmViewModel.getAllFavoriteMovies().getValue();
         verify(favoriteFilmRepository).getAllFavoriteMovies();
-        assertNotNull(moviesList);
-        assertEquals(dummyMovies.size(), moviesList.size());
+        assertNotNull(moviesEntities);
+        assertEquals(5, moviesEntities.size());
 
         favoriteFilmViewModel.getAllFavoriteMovies().observeForever(observer);
         verify(observer).onChanged(dummyMovies);
@@ -58,15 +61,16 @@ public class FavoriteFilmViewModelTest {
 
     @Test
     public void getAllFavoriteShows() {
-        List<FilmEntity> dummyShows = ShowsListDataGenerator.generateShowsListData();
-        MutableLiveData<List<FilmEntity>> shows = new MutableLiveData<>();
+        PagedList<FilmEntity> dummyShows = pagedList;
+        when(dummyShows.size()).thenReturn(5);
+        MutableLiveData<PagedList<FilmEntity>> shows = new MutableLiveData<>();
         shows.setValue(dummyShows);
 
-        when(favoriteFilmViewModel.getAllFavoriteShows()).thenReturn(shows);
-        List<FilmEntity> showsList = favoriteFilmViewModel.getAllFavoriteShows().getValue();
+        when(favoriteFilmRepository.getAllFavoriteShows()).thenReturn(shows);
+        List<FilmEntity> showsEntities = favoriteFilmViewModel.getAllFavoriteShows().getValue();
         verify(favoriteFilmRepository).getAllFavoriteShows();
-        assertNotNull(showsList);
-        assertEquals(dummyShows.size(), showsList.size());
+        assertNotNull(showsEntities);
+        assertEquals(5, showsEntities.size());
 
         favoriteFilmViewModel.getAllFavoriteShows().observeForever(observer);
         verify(observer).onChanged(dummyShows);
