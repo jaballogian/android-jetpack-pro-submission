@@ -1,11 +1,11 @@
 package com.lacak.androidjetpackprosubmission.data.source.local;
 
 import androidx.lifecycle.LiveData;
+import androidx.paging.DataSource;
 
 import com.lacak.androidjetpackprosubmission.data.source.local.entity.FilmEntity;
 import com.lacak.androidjetpackprosubmission.data.source.local.room.FavoriteFilmDao;
 
-import java.util.List;
 import java.util.concurrent.ExecutorService;
 
 public class LocalDataSource {
@@ -25,11 +25,11 @@ public class LocalDataSource {
         return INSTANCE;
     }
 
-    public LiveData<List<FilmEntity>> getAllFavoriteMovies() {
+    public DataSource.Factory<Integer, FilmEntity> getAllFavoriteMovies() {
         return favoriteFilmDao.getAllFavoriteMovies();
     }
 
-    public LiveData<List<FilmEntity>> getAllFavoriteShows() {
+    public DataSource.Factory<Integer, FilmEntity> getAllFavoriteShows() {
         return favoriteFilmDao.getAllFavoriteShows();
     }
 
