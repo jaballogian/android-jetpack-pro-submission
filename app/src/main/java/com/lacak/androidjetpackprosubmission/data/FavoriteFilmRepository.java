@@ -2,11 +2,11 @@ package com.lacak.androidjetpackprosubmission.data;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
+import androidx.paging.LivePagedListBuilder;
+import androidx.paging.PagedList;
 
 import com.lacak.androidjetpackprosubmission.data.source.local.LocalDataSource;
 import com.lacak.androidjetpackprosubmission.data.source.local.entity.FilmEntity;
-
-import java.util.List;
 
 public class FavoriteFilmRepository {
     private LocalDataSource localDataSource;
@@ -25,12 +25,22 @@ public class FavoriteFilmRepository {
         return INSTANCE;
     }
 
-    public LiveData<List<FilmEntity>> getAllFavoriteMovies() {
-        return localDataSource.getAllFavoriteMovies();
+    public LiveData<PagedList<FilmEntity>> getAllFavoriteMovies() {
+        PagedList.Config config = new PagedList.Config.Builder()
+                .setEnablePlaceholders(false)
+                .setInitialLoadSizeHint(5)
+                .setPageSize(5)
+                .build();
+        return new LivePagedListBuilder<>(localDataSource.getAllFavoriteMovies(), config).build();
     }
 
-    public LiveData<List<FilmEntity>> getAllFavoriteShows() {
-        return localDataSource.getAllFavoriteShows();
+    public LiveData<PagedList<FilmEntity>> getAllFavoriteShows() {
+        PagedList.Config config = new PagedList.Config.Builder()
+                .setEnablePlaceholders(false)
+                .setInitialLoadSizeHint(5)
+                .setPageSize(5)
+                .build();
+        return new LivePagedListBuilder<>(localDataSource.getAllFavoriteShows(), config).build();
     }
 
     public LiveData<FilmEntity> getDetailFavoriteMovie(int id) {
