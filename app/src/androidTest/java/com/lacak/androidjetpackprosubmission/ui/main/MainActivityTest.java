@@ -88,7 +88,7 @@ public class MainActivityTest {
     @Test
     public void loadFavoriteMovies() {
         delayTwoSecond();
-        onView(withId(R.id.recyler_view_film)).perform(RecyclerViewActions.actionOnItemAtPosition(7, click()));
+        onView(withId(R.id.recyler_view_film)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
         delayTwoSecond();
         onView(withId(R.id.floating_action_button_favorite)).perform(click());
         onView(withId(R.id.goToFavoriteActivity)).perform(click());
