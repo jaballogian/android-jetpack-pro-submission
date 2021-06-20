@@ -2,21 +2,24 @@ package com.lacak.androidjetpackprosubmission.data;
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
 import androidx.lifecycle.MutableLiveData;
+import androidx.paging.DataSource;
+import androidx.paging.PagedList;
 
 import com.lacak.androidjetpackprosubmission.data.source.local.LocalDataSource;
 import com.lacak.androidjetpackprosubmission.data.source.local.entity.FilmEntity;
 import com.lacak.androidjetpackprosubmission.data.source.remote.response.FilmResponse;
 import com.lacak.androidjetpackprosubmission.utils.LiveDataTestUtil;
 import com.lacak.androidjetpackprosubmission.utils.MoviesListDataGenerator;
+import com.lacak.androidjetpackprosubmission.utils.PagedListUtil;
 import com.lacak.androidjetpackprosubmission.utils.ShowsListDataGenerator;
 
 import org.junit.Rule;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 import java.util.List;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -24,7 +27,7 @@ public class FavoriteFilmRepositoryTest {
     @Rule
     public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
 
-    private LocalDataSource localDataSource = Mockito.mock(LocalDataSource.class);
+    private LocalDataSource localDataSource = mock(LocalDataSource.class);
     private FakeFavoriteFilmRepository fakeFavoriteFilmRepository = new FakeFavoriteFilmRepository(localDataSource);
 
     private List<FilmResponse> movieResponses = MoviesListDataGenerator.generateRemoteDummyMoviesListData();
@@ -38,11 +41,11 @@ public class FavoriteFilmRepositoryTest {
 
     @Test
     public void getAllFavoriteMovies() {
-        MutableLiveData<List<FilmEntity>> dummyMovies = new MutableLiveData<>();
-        dummyMovies.setValue(MoviesListDataGenerator.generateMoviesListData());
-        when(localDataSource.getAllFavoriteMovies()).thenReturn(dummyMovies);
+        DataSource.Factory<Integer, FilmEntity> dataSourceFactory = mock(DataSource.Factory.class);
+        when(localDataSource.getAllFavoriteMovies()).thenReturn(dataSourceFactory);
+        fakeFavoriteFilmRepository.getAllFavoriteMovies();
 
-        List<FilmEntity> moviesEntities = LiveDataTestUtil.getValue(fakeFavoriteFilmRepository.getAllFavoriteMovies());
+        PagedList<FilmEntity> moviesEntities = PagedListUtil.mockPagedList(MoviesListDataGenerator.generateMoviesListData());
         verify(localDataSource).getAllFavoriteMovies();
         assertNotNull(moviesEntities);
         assertEquals(movieResponses.size(), moviesEntities.size());
@@ -50,11 +53,11 @@ public class FavoriteFilmRepositoryTest {
 
     @Test
     public void getAllFavoriteShows() {
-        MutableLiveData<List<FilmEntity>> dummyShows = new MutableLiveData<>();
-        dummyShows.setValue(ShowsListDataGenerator.generateShowsListData());
-        when(localDataSource.getAllFavoriteShows()).thenReturn(dummyShows);
+        DataSource.Factory<Integer, FilmEntity> dataSourceFactory = mock(DataSource.Factory.class);
+        when(localDataSource.getAllFavoriteShows()).thenReturn(dataSourceFactory);
+        fakeFavoriteFilmRepository.getAllFavoriteShows();
 
-        List<FilmEntity> showsEntities = LiveDataTestUtil.getValue(fakeFavoriteFilmRepository.getAllFavoriteShows());
+        PagedList<FilmEntity> showsEntities = PagedListUtil.mockPagedList(ShowsListDataGenerator.generateShowsListData());
         verify(localDataSource).getAllFavoriteShows();
         assertNotNull(showsEntities);
         assertEquals(showResponses.size(), showsEntities.size());
