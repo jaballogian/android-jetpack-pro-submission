@@ -38,6 +38,7 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
 
         if(filmEntity != null){
             activityDetailBinding.progressBar.setVisibility(View.VISIBLE);
+            activityDetailBinding.floatingActionButtonFavorite.setVisibility(View.GONE);
 
             if(filmEntity.getType().equals(TYPE_MOVIE)){
                 detailViewModel.setSelectedMovie(filmEntity.getTitle());
@@ -58,6 +59,7 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
 
     private void populateData(FilmEntity inputFilmEntity){
         activityDetailBinding.progressBar.setVisibility(View.GONE);
+        activityDetailBinding.floatingActionButtonFavorite.setVisibility(View.VISIBLE);
         activityDetailBinding.textViewTitle.setText(inputFilmEntity.getTitle());
         activityDetailBinding.textViewGenres.setText(inputFilmEntity.getGenres());
         activityDetailBinding.textViewYear.setText(inputFilmEntity.getYear());
