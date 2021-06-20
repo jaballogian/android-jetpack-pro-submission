@@ -38,6 +38,7 @@ public class FavoriteDetailActivity extends AppCompatActivity implements View.On
 
         if(filmEntity != null) {
             activityFavoriteDetailBinding.progressBar.setVisibility(View.VISIBLE);
+            activityFavoriteDetailBinding.floatingActionButtonDelete.setVisibility(View.GONE);
 
             if(filmEntity.getType().equals(TYPE_MOVIE)) {
                 favoriteDetailViewModel.setSelectedFavoriteMovie(filmEntity.getId());
@@ -62,6 +63,7 @@ public class FavoriteDetailActivity extends AppCompatActivity implements View.On
 
     private void populateData(FilmEntity inputFilmEntity) {
         activityFavoriteDetailBinding.progressBar.setVisibility(View.GONE);
+        activityFavoriteDetailBinding.floatingActionButtonDelete.setVisibility(View.VISIBLE);
         activityFavoriteDetailBinding.textViewTitle.setText(inputFilmEntity.getTitle());
         activityFavoriteDetailBinding.textViewGenres.setText(inputFilmEntity.getGenres());
         activityFavoriteDetailBinding.textViewYear.setText(inputFilmEntity.getYear());
