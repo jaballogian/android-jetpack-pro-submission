@@ -1,10 +1,13 @@
 package com.lacak.androidjetpackprosubmission.ui.favoritefilm;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.paging.PagedListAdapter;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.lacak.androidjetpackprosubmission.data.source.local.entity.FilmEntity;
@@ -13,14 +16,28 @@ import com.lacak.androidjetpackprosubmission.databinding.ItemFilmBinding;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FavoriteFilmAdapter extends RecyclerView.Adapter<FavoriteFilmAdapter.FavoriteFilmViewHolder> {
+public class FavoriteFilmAdapter extends PagedListAdapter<FilmEntity, FavoriteFilmAdapter.FavoriteFilmViewHolder> {
     private final ArrayList<FilmEntity> favoriteFilmList = new ArrayList<>();
     private final Activity activity;
     private static OnItemClickCallback onItemClickCallback;
 
     FavoriteFilmAdapter(Activity activity) {
+        super(DIFF_CALLBACK);
         this.activity = activity;
     }
+
+    private static DiffUtil.ItemCallback<FilmEntity> DIFF_CALLBACK =
+            new DiffUtil.ItemCallback<FilmEntity>() {
+                @Override
+                public boolean areItemsTheSame(@NonNull FilmEntity oldItem, @NonNull FilmEntity newItem) {
+                    return oldItem.getTitle().equals(newItem.getTitle());
+                }
+                @SuppressLint("DiffUtilEquals")
+                @Override
+                public boolean areContentsTheSame(@NonNull FilmEntity oldItem, @NonNull FilmEntity newItem) {
+                    return oldItem.equals(newItem);
+                }
+            };
 
     void setFavoriteFilmList(List<FilmEntity> favoriteFilmList) {
         if(favoriteFilmList == null) return;
