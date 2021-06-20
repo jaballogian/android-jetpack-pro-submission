@@ -2,11 +2,10 @@ package com.lacak.androidjetpackprosubmission.ui.favoritefilm;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
+import androidx.paging.PagedList;
 
 import com.lacak.androidjetpackprosubmission.data.FavoriteFilmRepository;
 import com.lacak.androidjetpackprosubmission.data.source.local.entity.FilmEntity;
-
-import java.util.List;
 
 public class FavoriteFilmViewModel extends ViewModel {
     private FavoriteFilmRepository favoriteFilmRepository;
@@ -15,11 +14,11 @@ public class FavoriteFilmViewModel extends ViewModel {
         this.favoriteFilmRepository = favoriteFilmRepository;
     }
 
-    LiveData<List<FilmEntity>> getAllFavoriteMovies() {
+    public LiveData<PagedList<FilmEntity>> getAllFavoriteMovies() {
         return favoriteFilmRepository.getAllFavoriteMovies();
     }
 
-    LiveData<List<FilmEntity>> getAllFavoriteShows() {
+    public LiveData<PagedList<FilmEntity>> getAllFavoriteShows() {
         return favoriteFilmRepository.getAllFavoriteShows();
     }
 }
