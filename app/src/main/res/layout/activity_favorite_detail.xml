@@ -62,7 +62,8 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@+id/text_view_genres"
             android:layout_marginTop="20dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:gravity="center">
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
@@ -156,6 +157,16 @@
                         android:textColor="@color/blue_grey_700"/>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/floating_action_button_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|bottom"
+                app:srcCompat="@drawable/ic_baseline_delete_outline_white_24"
+                android:backgroundTint="@color/red_a700"
+                app:borderWidth="0dp"
+                app:elevation="0dp"/>
         </LinearLayout>
 
         <TextView
@@ -186,19 +197,5 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/floating_action_button_delete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end|bottom"
-            app:srcCompat="@drawable/ic_baseline_delete_outline_white_24"
-            app:layout_constraintTop_toBottomOf="@+id/text_view_overview"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginTop="20dp"
-            android:backgroundTint="@color/red_a700"
-            app:borderWidth="0dp"
-            app:elevation="0dp"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
